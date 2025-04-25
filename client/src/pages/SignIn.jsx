@@ -1,7 +1,11 @@
-import React from "react";
+import Modal from "../components/Modal";
 
 const SignIn = () => {
-  return <div>Sign In</div>;
+  return (
+    <div>
+      <h1>hello</h1>
+    </div>
+  );
 };
 
 export default SignIn;
