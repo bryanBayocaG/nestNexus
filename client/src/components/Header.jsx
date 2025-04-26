@@ -8,7 +8,7 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <header className="bg-white shadow-md rounded-2xl  mx-2 md:mx-10">
+      <header className="bg-white shadow-md rounded-2xl  mx-2 md:mx-10 sticky top-0 z-50">
         <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
           <Link to="/">
             <h1 className="font-bold  text-sm sm:text-xl lg:text-2xl flex items-center flex-wrap">
