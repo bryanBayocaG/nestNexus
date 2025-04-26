@@ -1,7 +1,8 @@
-import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { useState } from "react";
+import SignUpForm from "../forms/signUpForm";
+import HeaderSearch from "../forms/HeaderSearch";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -16,15 +17,7 @@ const Header = () => {
               <span className="text-secondary">Nexus</span>
             </h1>
           </Link>
-          <form className="bg-slate-100 rounded-lg p-3 flex items-center gap-2">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="bg-transparent focus:outline-none w-40 md:w-50 lg:w-60"
-            />
-
-            <FaSearch className="text-secondary cursor-pointer" />
-          </form>
+          <HeaderSearch />
           <ul className="flex items-center gap-4 md:gap-6 text-sm sm:text-lg">
             <Link to="/">
               <li className="hidden sm:inline hover:text-primary transition duration-300 ease-in-out">
@@ -47,29 +40,7 @@ const Header = () => {
       </header>
 
       <Modal open={open} onClose={() => setOpen(false)} title={"Sign Up"}>
-        <form className="flex flex-col gap-4" action="">
-          <input
-            type="text"
-            className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
-            placeholder="Username"
-            id="username"
-          />
-          <input
-            type="text"
-            className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
-            placeholder="Email"
-            id="email"
-          />
-          <input
-            type="password"
-            className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
-            placeholder="Password"
-            id="password"
-          />
-          <button className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
-            Continue
-          </button>
-        </form>
+        <SignUpForm />
       </Modal>
     </>
   );
