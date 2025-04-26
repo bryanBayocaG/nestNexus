@@ -3,6 +3,8 @@ import { backEndBaseURL } from "../utils/backendBaseURL";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -11,44 +13,78 @@ function SignUpForm() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${backEndBaseURL}/api/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+    try {
+      setLoading(true);
+      const res = await fetch(`${backEndBaseURL}/api/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null);
+      alert("User Created Successfully");
+    } catch (error) {
+      if (error instanceof Error) {
+        setLoading(false);
+        setError(error.message);
+      }
+    }
+    setFormData({
+      userName: "",
+      email: "",
+      password: "",
     });
-    const data = await res.json();
-    console.log(data);
   };
+  console.log(formData);
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      {error && (
+        <div
+          className="bg-red-100 text-red-700 border border-red-500 rounded-lg p-4 mb-4"
+          role="alert"
+        >
+          <strong className="font-bold">Error!</strong>
+          <span className="block sm:inline">{error}</span>
+        </div>
+      )}
       <input
         type="text"
-        className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
+        value={formData.userName}
+        className="border border-dark p-3 rounded-lg focus:border-secondary outline-none"
         placeholder="Username"
         id="userName"
         onChange={handleChange}
       />
       <input
         type="text"
-        className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
+        value={formData.email}
+        className="border border-dark p-3 rounded-lg focus:border-secondary outline-none"
         placeholder="Email"
         id="email"
         onChange={handleChange}
       />
       <input
         type="password"
-        className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
+        value={formData.password}
+        className="border border-dark p-3 rounded-lg focus:border-secondaryoutline-none"
         placeholder="Password"
         id="password"
         onChange={handleChange}
       />
       <button
         type="submit"
-        className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
+        disabled={loading}
+        className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out disabled:opacity-80  disabled:hover:bg-dark disabled:bg-dark  disabled:cursor-not-allowed"
       >
-        Continue
+        {loading ? "Loading..." : "Sign Up"}
       </button>
     </form>
   );

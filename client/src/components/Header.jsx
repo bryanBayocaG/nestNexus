@@ -38,7 +38,6 @@ const Header = () => {
           </ul>
         </div>
       </header>
-
       <Modal open={open} onClose={() => setOpen(false)} title={"Sign Up"}>
         <SignUpForm />
       </Modal>
