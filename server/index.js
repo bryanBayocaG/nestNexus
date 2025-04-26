@@ -2,12 +2,20 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/dbConfig.js";
 import authRouter from "./routes/auth.route.js";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 connectDB();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: [`${process.env.ALLOWED_URL}`],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.get("/", async (req, res) => {
   res.send("nestNexus API is running");
