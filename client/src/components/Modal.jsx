@@ -36,7 +36,7 @@ function Modal({ open, onClose, children, title }) {
           <div>
             <button
               onClick={onClose}
-              className="absolute w-fit h-fit top-2 right-2 p-1 rounded-lg text-dark bg-white hover:bg-gray-200 hover:text-secondary transition duration-300 ease-in-out text-xl font-bold"
+              className="absolute w-fit h-fit top-2 right-6 p-1 rounded-lg text-dark bg-white hover:bg-gray-200 hover:text-secondary transition duration-300 ease-in-out text-xl font-bold"
             >
               &#x2715;
             </button>

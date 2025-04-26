@@ -62,6 +62,7 @@ function SignUpForm() {
         placeholder="Username"
         id="userName"
         onChange={handleChange}
+        required
       />
       <input
         type="text"
@@ -70,6 +71,7 @@ function SignUpForm() {
         placeholder="Email"
         id="email"
         onChange={handleChange}
+        required
       />
       <input
         type="password"
@@ -78,6 +80,7 @@ function SignUpForm() {
         placeholder="Password"
         id="password"
         onChange={handleChange}
+        required
       />
       <button
         type="submit"
