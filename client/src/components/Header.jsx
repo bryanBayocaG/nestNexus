@@ -12,7 +12,7 @@ const Header = () => {
           <Link to="/">
             <h1 className="font-bold  text-sm sm:text-xl lg:text-2xl flex items-center flex-wrap">
               <img className="w-12" src="/Noxus_Crest.png" alt="" />
-              <span className="text-primary">Nests</span>
+              <span className="text-primary">Nest</span>
               <span className="text-secondary">Nexus</span>
             </h1>
           </Link>
@@ -40,14 +40,36 @@ const Header = () => {
               className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
               onClick={() => setOpen(true)}
             >
-              Sign In
+              Sign Up
             </li>
           </ul>
         </div>
       </header>
 
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <h1>Hello</h1>
+      <Modal open={open} onClose={() => setOpen(false)} title={"Sign Up"}>
+        <form className="flex flex-col gap-4" action="">
+          <input
+            type="text"
+            className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
+            placeholder="Username"
+            id="username"
+          />
+          <input
+            type="text"
+            className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
+            placeholder="Email"
+            id="email"
+          />
+          <input
+            type="password"
+            className="border border-dark p-3 rounded-lg focus:border-red-500 outline-none"
+            placeholder="Password"
+            id="password"
+          />
+          <button className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out">
+            Continue
+          </button>
+        </form>
       </Modal>
     </>
   );
