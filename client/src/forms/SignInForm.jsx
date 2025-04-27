@@ -50,7 +50,7 @@ function SignInForm() {
           role="alert"
         >
           <strong className="font-bold">Error!</strong>
-          <span className="block sm:inline">{error}</span>
+          <span className="block sm:inline">{" " + error}</span>
         </div>
       )}
       <input
@@ -65,7 +65,7 @@ function SignInForm() {
       <input
         type="password"
         value={formData.password}
-        className="border border-dark p-3 rounded-lg focus:border-secondaryoutline-none"
+        className="border border-dark p-3 rounded-lg focus:border-secondary outline-none"
         placeholder="Password"
         id="password"
         onChange={handleChange}
