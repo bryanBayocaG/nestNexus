@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 
-function SignUpForm() {
+function SignInForm() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ function SignUpForm() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch(`${backEndBaseURL}/api/auth/signup`, {
+      const res = await fetch(`${backEndBaseURL}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,6 @@ function SignUpForm() {
       }
       setLoading(false);
       setError(null);
-      alert("User Created Successfully");
     } catch (error) {
       if (error instanceof Error) {
         setLoading(false);
@@ -92,4 +91,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SignInForm;
