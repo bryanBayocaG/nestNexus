@@ -55,15 +55,6 @@ function SignInForm() {
       )}
       <input
         type="text"
-        value={formData.userName}
-        className="border border-dark p-3 rounded-lg focus:border-secondary outline-none"
-        placeholder="Username"
-        id="userName"
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
         value={formData.email}
         className="border border-dark p-3 rounded-lg focus:border-secondary outline-none"
         placeholder="Email"
@@ -85,7 +76,7 @@ function SignInForm() {
         disabled={loading}
         className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out disabled:opacity-80  disabled:hover:bg-dark disabled:bg-dark  disabled:cursor-not-allowed"
       >
-        {loading ? "Loading..." : "Sign Up"}
+        {loading ? "Loading..." : "Sign In"}
       </button>
     </form>
   );

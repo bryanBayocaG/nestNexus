@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { useState } from "react";
-import SignUpForm from "../forms/signUpForm";
+import SignUpForm from "../forms/SignUpForm";
 import HeaderSearch from "../forms/HeaderSearch";
+import CombineSignInandUp from "../forms/CombineSignInandUp";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -38,8 +39,12 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      <Modal open={open} onClose={() => setOpen(false)} title={"Sign Up"}>
-        <SignUpForm />
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={"Welcome to NestNexus"}
+      >
+        <CombineSignInandUp />
       </Modal>
     </>
   );

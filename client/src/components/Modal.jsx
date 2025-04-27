@@ -20,7 +20,7 @@ function Modal({ open, onClose, children, title }) {
       {/* backdrop */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 flex items-center transition-colors  bg-black/20 ${
+        className={`fixed inset-0 flex items-center transition-colors z-50 bg-black/20 ${
           open ? "block" : "hidden"
         }`}
       >
