@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { backEndBaseURL } from "../utils/backendBaseURL";
+import OAuth from "../components/OAuth";
 
 function SignUpForm() {
   const [formData, setFormData] = useState({});
@@ -88,6 +89,7 @@ function SignUpForm() {
       >
         {loading ? "Loading..." : "Sign Up"}
       </button>
+      <OAuth />
     </form>
   );
 }

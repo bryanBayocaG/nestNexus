@@ -8,6 +8,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { store } from "../redux/store";
+import OAuth from "../components/OAuth";
 
 function SignInForm() {
   const [formData, setFormData] = useState({
@@ -90,6 +91,7 @@ function SignInForm() {
       >
         {loading ? "Loading..." : "Sign In"}
       </button>
+      <OAuth />
     </form>
   );
 }

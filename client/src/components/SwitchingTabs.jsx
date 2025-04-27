@@ -22,7 +22,7 @@ function SwitchingTabs({ tabs, tabContent }) {
   }, [tabs, activeTab]); // depends on tabs array (first render)
 
   return (
-    <div className="max-w-lg p-4 rounded-lg shadow-xl">
+    <div className="w-full">
       <div className="relative flex flex-wrap gap-2 border-b">
         {tabs.map((tab) => (
           <button
