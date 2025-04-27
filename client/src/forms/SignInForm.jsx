@@ -7,9 +7,13 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import { store } from "../redux/store";
 
 function SignInForm() {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   const { error, loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,11 +35,14 @@ function SignInForm() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+      console.log("API Response:", data); // Log the API response
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
+      console.log("Dispatching signInSuccess with data:", data); // Log the data being dispatched
       dispatch(signInSuccess(data));
+      console.log("Updated store:", store.getState()); // Log the updated store state
       navigate("/");
     } catch (error) {
       if (error instanceof Error) {
@@ -43,7 +50,6 @@ function SignInForm() {
       }
     }
     setFormData({
-      userName: "",
       email: "",
       password: "",
     });
