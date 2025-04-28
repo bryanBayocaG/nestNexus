@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { closeModal } from "../redux/modalState/modalSlice";
 import {
   signInStart,
   signInSuccess,
@@ -16,7 +16,6 @@ function SignInForm() {
     password: "",
   });
   const { error, loading } = useSelector((state) => state.user);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
     setFormData({
@@ -44,7 +43,7 @@ function SignInForm() {
       console.log("Dispatching signInSuccess with data:", data); // Log the data being dispatched
       dispatch(signInSuccess(data));
       console.log("Updated store:", store.getState()); // Log the updated store state
-      navigate("/");
+      dispatch(closeModal());
     } catch (error) {
       if (error instanceof Error) {
         dispatch(signInFailure(error.message));

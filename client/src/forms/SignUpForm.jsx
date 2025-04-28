@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 import OAuth from "../components/OAuth";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../redux/modalState/modalSlice";
 
 function SignUpForm() {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +34,7 @@ function SignUpForm() {
       }
       setLoading(false);
       setError(null);
-      alert("User Created Successfully");
+      dispatch(closeModal());
     } catch (error) {
       if (error instanceof Error) {
         setLoading(false);

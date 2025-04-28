@@ -4,6 +4,7 @@ import { auth, googleProvider } from "../config/fireBase";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 import { useDispatch } from "react-redux";
 import { signInSuccess } from "../redux/user/userSlice";
+import { closeModal } from "../redux/modalState/modalSlice";
 
 function OAuth() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function OAuth() {
       });
       const data = await res.json();
       dispatch(signInSuccess(data));
+      dispatch(closeModal());
     } catch (error) {
       console.log("Could not sign in with Google", error);
     }

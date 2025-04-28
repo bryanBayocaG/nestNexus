@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
-import { useState } from "react";
-import SignUpForm from "../forms/SignUpForm";
+// import { useState } from "react";
 import HeaderSearch from "../forms/HeaderSearch";
 import CombineSignInandUp from "../forms/CombineSignInandUp";
-
+import { useSelector, useDispatch } from "react-redux";
+import { openModal } from "../redux/modalState/modalSlice";
 const Header = () => {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.user);
+  // const { isOpen } = useSelector((state) => state.modal);
+  console.log(currentUser?.avatar);
+  // const [open, setOpen] = useState(false);
   return (
     <>
       <header className="bg-white shadow-md rounded-2xl mx-2 md:mx-10 sticky top-0 z-50">
@@ -30,20 +34,24 @@ const Header = () => {
                 About
               </li>
             </Link>
-            <li
-              className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-              onClick={() => setOpen(true)}
-            >
-              Sign Up
-            </li>
+            {currentUser ? (
+              <img
+                src={currentUser?.avatar}
+                alt=""
+                className="w-10 h-10 rounded-full"
+              />
+            ) : (
+              <li
+                className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
+                onClick={() => dispatch(openModal())}
+              >
+                Sign Up
+              </li>
+            )}
           </ul>
         </div>
       </header>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title={"Welcome to NestNexus"}
-      >
+      <Modal title={"Welcome to NestNexus"}>
         <CombineSignInandUp />
       </Modal>
     </>

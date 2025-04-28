@@ -1,6 +1,8 @@
-import React from "react";
-
-function Modal({ open, onClose, children, title }) {
+import { useDispatch, useSelector } from "react-redux";
+import { closeModal } from "../redux/modalState/modalSlice";
+function Modal({ children, title }) {
+  const dispatch = useDispatch();
+  const { isOpen } = useSelector((state) => state.modal);
   return (
     <>
       <style>
@@ -19,23 +21,24 @@ function Modal({ open, onClose, children, title }) {
       </style>
       {/* backdrop */}
       <div
-        onClick={onClose}
+        // onClick={onClose}
+        onClick={() => dispatch(closeModal())}
         className={`fixed inset-0 flex items-center transition-colors z-50 bg-black/20 ${
-          open ? "block" : "hidden"
+          isOpen ? "block" : "hidden"
         }`}
       >
         {/* modal itself */}
         <div
           onClick={(e) => e.stopPropagation()}
           className={` bg-white rounded-xl shadow-2xl p-6 transition-all transform w-full max-w-sm md:max-w-xl mx-auto my-4 ${
-            open
+            isOpen
               ? "block scale-100 animate-[slideDown_0.5s_ease-out_forwards]"
               : "opacity-0 "
           }`}
         >
           <div>
             <button
-              onClick={onClose}
+              onClick={() => dispatch(closeModal())}
               className="absolute w-fit h-fit top-2 right-6 p-1 rounded-lg text-dark bg-white hover:bg-gray-200 hover:text-secondary transition duration-300 ease-in-out text-xl font-bold"
             >
               &#x2715;
