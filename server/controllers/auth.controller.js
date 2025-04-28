@@ -44,7 +44,6 @@ export const googleSignIn = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      console.log("meron na pong user");
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: pass, ...userDetails } = user._doc;
       res
@@ -52,7 +51,6 @@ export const googleSignIn = async (req, res, next) => {
         .status(200)
         .json(userDetails);
     } else {
-      console.log("wala pa po");
       const gebneratedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);

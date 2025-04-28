@@ -8,9 +8,6 @@ import { openModal } from "../redux/modalState/modalSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
-  // const { isOpen } = useSelector((state) => state.modal);
-  console.log(currentUser?.avatar);
-  // const [open, setOpen] = useState(false);
   return (
     <>
       <header className="bg-white shadow-md rounded-2xl mx-2 md:mx-10 sticky top-0 z-50">

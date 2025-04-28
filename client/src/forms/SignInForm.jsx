@@ -7,7 +7,6 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
-import { store } from "../redux/store";
 import OAuth from "../components/OAuth";
 
 function SignInForm() {
@@ -35,14 +34,11 @@ function SignInForm() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log("API Response:", data); // Log the API response
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
-      console.log("Dispatching signInSuccess with data:", data); // Log the data being dispatched
       dispatch(signInSuccess(data));
-      console.log("Updated store:", store.getState()); // Log the updated store state
       dispatch(closeModal());
     } catch (error) {
       if (error instanceof Error) {

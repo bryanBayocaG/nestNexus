@@ -11,8 +11,6 @@ function OAuth() {
   const handleGoogleClick = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log("Google Sign-In Result:", result);
-
       const res = await fetch(`${backEndBaseURL}/api/auth/google`, {
         method: "POST",
         headers: {
