@@ -5,6 +5,7 @@ import HeaderSearch from "../forms/HeaderSearch";
 import CombineSignInandUp from "../forms/CombineSignInandUp";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../redux/modalState/modalSlice";
+import ProfileDropDown from "./ProfileDropDown";
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
@@ -32,10 +33,9 @@ const Header = () => {
               </li>
             </Link>
             {currentUser ? (
-              <img
-                src={currentUser?.avatar}
-                alt=""
-                className="w-10 h-10 rounded-full object-cover cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+              <ProfileDropDown
+                imgSrc={currentUser?.avatar}
+                userName={currentUser?.userName}
               />
             ) : (
               <li
