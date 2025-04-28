@@ -1,12 +1,30 @@
 import { signInWithPopup } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { auth, googleProvider } from "../config/fireBase";
+import { backEndBaseURL } from "../utils/backendBaseURL";
+import { useDispatch } from "react-redux";
+import { signInSuccess } from "../redux/user/userSlice";
 
 function OAuth() {
+  const dispatch = useDispatch();
   const handleGoogleClick = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log("Google Sign-In Result:", result);
+
+      const res = await fetch(`${backEndBaseURL}/api/auth/google`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+        }),
+      });
+      const data = await res.json();
+      dispatch(signInSuccess(data));
     } catch (error) {
       console.log("Could not sign in with Google", error);
     }
