@@ -5,6 +5,8 @@ import AboutPage from "./pages/AboutPage";
 import SignOut from "./pages/SignOut";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
+import PrivateRoute from "./components/PrivateRoute";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
   return (
@@ -16,7 +18,10 @@ export default function App() {
           {/* <Route path="/sign-in" element={<SignIn />} /> */}
           <Route path="/about" element={<AboutPage />} />
           <Route path="/sign-out" element={<SignOut />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </BrowserRouter>
