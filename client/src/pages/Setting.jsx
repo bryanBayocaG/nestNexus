@@ -6,9 +6,9 @@ function Setting() {
   const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className="flex justify-center mt-10 ">
-      <div className="flex gap-6 w-[50%]">
-        <div className="h-fit shadow-md rounded-md p-5 pr-10">
+    <div className="flex justify-center ">
+      <div className="flex gap-6 w-[90%] md:w-[80%] lg:w-[55%]  mx-auto">
+        <div className="hidden md:block h-fit shadow-md rounded-md p-5 pr-10">
           <h2 className="font-bold text-2xl">Settings</h2>
           <ul className="my-5 flex flex-col gap-2 cursor-pointer">
             <li className="w-full px-4 pl-1 text-start rounded-md hover:bg-gray-200">
@@ -24,9 +24,9 @@ function Setting() {
             <h2 className="font-bold text-1xl">Profile Settings</h2>
           </div>
           <Divider />
-          <div className="flex gap-10 items-center p-5">
+          <div className="flex gap-3 md:gap-6 lg:gap-10 items-center p-5">
             <div className="relative p-1 shadow-lg bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
-              <input type="file" ref={fileRef} className="hidden" />
+              <input type="file" ref={fileRef} hidden accept="image/*" />
               <img
                 src={currentUser?.avatar}
                 alt={currentUser?.userName}
