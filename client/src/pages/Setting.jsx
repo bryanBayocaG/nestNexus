@@ -5,7 +5,7 @@ import Divider from "../components/Divider";
 function Setting() {
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className="mx-auto w-1/2 mt-10 ">
+    <div className="flex justify-center mt-10 ">
       <div className="flex gap-6">
         <div className="h-fit shadow-md rounded-md p-5 pr-10">
           <h2 className="font-bold text-2xl">Settings</h2>
@@ -44,8 +44,8 @@ function Setting() {
           <div className="my-3">
             <div className="mb-5 p-5">
               <div className="flex gap-5 mb-5">
-                <div className="flex-1 flex-col">
-                  <label htmlFor="">Username</label>
+                <div className="flex flex-1 flex-col">
+                  <label>Username</label>
                   <input
                     value={currentUser?.userName}
                     className="border border-gray-200 p-3 rounded-lg focus:border-secondary outline-none"
@@ -53,7 +53,7 @@ function Setting() {
                     placeholder="Username"
                   />
                 </div>
-                <div className="flex-1 flex-col">
+                <div className="flex flex-1 flex-col">
                   <label>Email</label>
                   <input
                     value={currentUser?.email}
