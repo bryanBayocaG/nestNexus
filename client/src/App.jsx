@@ -3,15 +3,15 @@ import Home from "./pages/Home";
 // import SignIn from "./pages/signIn";
 import AboutPage from "./pages/AboutPage";
 import SignOut from "./pages/SignOut";
-import Profile from "./pages/Profile";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
 import NotFoundPage from "./pages/NotFoundPage";
+import Setting from "./pages/Setting";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="bg-gray-100 flex flex-col min-h-screen ">
+      <div className=" flex flex-col min-h-screen ">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -19,7 +19,7 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/sign-out" element={<SignOut />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Setting />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

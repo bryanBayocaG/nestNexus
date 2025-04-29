@@ -1,33 +1,63 @@
-import React from "react";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Divider from "./Divider";
 
 function ProfileDropDown({ imgSrc, userName }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <button className="group relative p-1 ">
-      <img
-        src={imgSrc}
-        alt=""
-        className="w-10 h-10 rounded-full object-cover cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
-      />
-      <div className="absolute  md:w-48 bg-white border-2 border-gray-200 top-full right-0 rounded-lg p-3 mt-1 shadow-md scale-y-0 group-focus:scale-y-100 origin-top duration-200">
-        <div className="flex flex-col items-start mb-4">
-          <p className="text-md text-gray-500">Signed in as</p>
-          <p className="text-sm">{userName}</p>
+    <div className="relative" ref={dropdownRef}>
+      <button onClick={toggleDropdown} className="p-1">
+        <img
+          src={imgSrc}
+          alt="profile"
+          className="w-10 h-10 rounded-full object-cover cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
+        />
+      </button>
+
+      {isOpen && (
+        <div className="absolute md:w-48 bg-white border-2 border-gray-200 top-full right-0 rounded-lg p-3 mt-1 shadow-md z-50">
+          <div className="flex flex-col items-start mb-4">
+            <p className="text-md text-gray-500">Signed in as</p>
+            <p className="text-sm">{userName}</p>
+          </div>
+          <Divider />
+          <ul className="py-2 flex flex-col items-start">
+            <Link
+              to="/settings"
+              className="w-full mb-2 pl-1 text-start rounded-md hover:bg-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              Settings
+            </Link>
+            <Divider />
+            <Link
+              to="/logout"
+              className="w-full pl-1 text-start rounded-md hover:bg-primary hover:text-white"
+              onClick={() => setIsOpen(false)}
+            >
+              Logout
+            </Link>
+          </ul>
         </div>
-        <div className="h-px bg-gray-200 w-full" />
-        <ul className="py-2 gap-1 flex flex-col items-start">
-          <li className="w-full pl-1 text-start rounded-md hover:bg-gray-100 cursor-pointer">
-            Profile
-          </li>
-          <li className="w-full pl-1 text-start rounded-md hover:bg-gray-100 cursor-pointer">
-            Settings
-          </li>
-          <div className="h-px bg-gray-200 w-full mb-2" />
-          <li className="w-full pl-1 text-start rounded-md hover:bg-primary hover:text-white cursor-pointer">
-            Logout
-          </li>
-        </ul>
-      </div>
-    </button>
+      )}
+    </div>
   );
 }
 
