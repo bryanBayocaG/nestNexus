@@ -11,7 +11,7 @@ function Setting() {
           <h2 className="font-bold text-2xl">Settings</h2>
           <ul className="my-5 flex flex-col gap-2 cursor-pointer">
             <li className="w-full px-4 pl-1 text-start rounded-md hover:bg-gray-200">
-              Public profile
+              Profile settings
             </li>
             <li className="w-full pl-1 text-start rounded-md hover:bg-gray-200">
               Listing
@@ -20,7 +20,7 @@ function Setting() {
         </div>
         <div className="flex-1 shadow-lg rounded-md">
           <div className="p-5">
-            <h2 className="font-bold text-1xl">Public Profile</h2>
+            <h2 className="font-bold text-1xl">Profile Settings</h2>
           </div>
           <Divider />
           <div className="flex gap-4 items-center p-5">
