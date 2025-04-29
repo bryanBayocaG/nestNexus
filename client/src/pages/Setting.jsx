@@ -1,12 +1,13 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import Divider from "../components/Divider";
+import { useRef } from "react";
 
 function Setting() {
+  const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="flex justify-center mt-10 ">
-      <div className="flex gap-6">
+      <div className="flex gap-6 w-[50%]">
         <div className="h-fit shadow-md rounded-md p-5 pr-10">
           <h2 className="font-bold text-2xl">Settings</h2>
           <ul className="my-5 flex flex-col gap-2 cursor-pointer">
@@ -23,64 +24,60 @@ function Setting() {
             <h2 className="font-bold text-1xl">Profile Settings</h2>
           </div>
           <Divider />
-          <div className="flex gap-4 items-center p-5">
-            <div className="p-3 shadow-lg bg-white rounded-full">
+          <div className="flex gap-10 items-center p-5">
+            <div className="relative p-1 shadow-lg bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
+              <input type="file" ref={fileRef} className="hidden" />
               <img
                 src={currentUser?.avatar}
                 alt={currentUser?.userName}
                 className="rounded-full"
               />
+              <div
+                onClick={() => fileRef.current.click()}
+                className="opacity-0 hover:opacity-60 hover:cursor-pointer bg-slate-900  absolute top-0 left-0 w-full h-full rounded-full flex justify-center items-center"
+              >
+                <p className="text-white text-center">Change image</p>
+              </div>
             </div>
-            <div className="flex gap-2 flex-col">
-              <button className="border-2 text-sm rounded-lg border-gray-200 p-2 hover:opacity-90 hover:scale-105 transition-all duration-300">
-                Change picture
-              </button>
-              <button className="border-2 text-sm rounded-lg bg-primary text-white border-gray-200 p-2 hover:opacity-90 hover:scale-105 transition-all duration-300">
-                Delete picture
+            <div className="flex w-[60%] gap-2 flex-col">
+              <div className="flex flex-col">
+                <label>Username</label>
+                <input
+                  value={currentUser?.userName}
+                  className="border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
+                  type="text"
+                  placeholder="Username"
+                />
+              </div>
+              <div className="flex flex-1 flex-col">
+                <label>Email</label>
+                <input
+                  value={currentUser?.email}
+                  className="border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
+                  type="text"
+                  placeholder="Email"
+                />
+              </div>
+              <button className="w-full bg-secondary text-white rounded-lg p-1 hover:opacity-90 hover:scale-105 transition-all duration-300">
+                Apply
               </button>
             </div>
           </div>
           <Divider />
           <div className="my-3">
-            <div className="mb-5 p-5">
-              <div className="flex gap-5 mb-5">
-                <div className="flex flex-1 flex-col">
-                  <label>Username</label>
-                  <input
-                    value={currentUser?.userName}
-                    className="border border-gray-200 p-3 rounded-lg focus:border-secondary outline-none"
-                    type="text"
-                    placeholder="Username"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col">
-                  <label>Email</label>
-                  <input
-                    value={currentUser?.email}
-                    className="border border-gray-200 p-3 rounded-lg focus:border-secondary outline-none"
-                    type="text"
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
-              <button className="w-full bg-secondary text-white rounded-lg p-3 hover:opacity-90 hover:scale-105 transition-all duration-300">
-                Apply
-              </button>
-            </div>
-            <Divider />
             <div className="p-5">
               <h2 className="text-2xl mb-2">Danger Zone</h2>
               <div className="border-2 border-primary rounded-lg">
                 <div className="p-5">
                   <input
-                    className="w-full border border-gray-200 p-3 rounded-lg focus:border-secondary outline-none"
+                    className="w-full border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
                     type="text"
                     placeholder="Password"
                   />
                 </div>
                 <Divider />
                 <div className="p-5">
-                  <button className="bg-primary rounded-lg round-lg text-white p-3 w-full hover:opacity-90 hover:scale-105 transition-all duration-300">
+                  <button className="bg-primary rounded-lg round-lg text-white p-1 w-full hover:opacity-90 hover:scale-105 transition-all duration-300">
                     Delete Account
                   </button>
                 </div>
