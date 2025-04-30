@@ -1,10 +1,44 @@
 import { useSelector } from "react-redux";
 import Divider from "../components/Divider";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { storage, ID } from "../config/appWrite";
 
 function Setting() {
   const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
+  const [file, setFile] = useState(null);
+  useEffect(() => {
+    if (file) {
+      handleFileUpload();
+    }
+  }, [file]);
+
+  const handleFileUpload = async () => {
+    try {
+      const res = await storage.createFile(
+        import.meta.env.VITE_nestNexusProfile,
+        ID.unique(),
+        file
+      );
+      if (res) {
+        const response = await fetch("", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: currentUser._id,
+            avatar: res.$id,
+          }),
+        });
+        const data = response.json();
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex justify-center ">
       <div className="flex gap-6 w-[90%] md:w-[80%] lg:w-[55%]  mx-auto">
@@ -26,7 +60,13 @@ function Setting() {
           <Divider />
           <div className="flex gap-3 md:gap-6 lg:gap-10 items-center p-5">
             <div className="relative p-1 shadow-lg bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
-              <input type="file" ref={fileRef} hidden accept="image/*" />
+              <input
+                onChange={(e) => setFile(e.target.files[0])}
+                type="file"
+                ref={fileRef}
+                hidden
+                accept="image/*"
+              />
               <img
                 src={currentUser?.avatar}
                 alt={currentUser?.userName}
@@ -43,7 +83,7 @@ function Setting() {
               <div className="flex flex-col">
                 <label>Username</label>
                 <input
-                  value={currentUser?.userName}
+                  defaultValue={currentUser?.userName}
                   className="border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
                   type="text"
                   placeholder="Username"
@@ -52,7 +92,7 @@ function Setting() {
               <div className="flex flex-1 flex-col">
                 <label>Email</label>
                 <input
-                  value={currentUser?.email}
+                  defaultValue={currentUser?.email}
                   className="border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
                   type="text"
                   placeholder="Email"
