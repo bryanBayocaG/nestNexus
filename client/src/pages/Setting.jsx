@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
 import Divider from "../components/Divider";
 import ImageUpload from "../components/settingsComponent/imageUpload";
+import UserNameAndEmailChange from "../components/settingsComponent/UserNameAndEmailChange";
 
 function Setting() {
-  const { currentUser } = useSelector((state) => state.user);
-
   return (
     <div className="flex justify-center ">
       <div className="flex gap-6 w-[90%] md:w-[80%] lg:w-[55%]  mx-auto">
@@ -26,44 +24,35 @@ function Setting() {
           <Divider />
           <div className="flex gap-3 md:gap-6 lg:gap-10 items-center p-5">
             <ImageUpload />
-            <div className="flex w-[60%] gap-2 flex-col">
-              <div className="flex flex-col">
-                <label>Username</label>
-                <input
-                  defaultValue={currentUser?.userName}
-                  className="border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
-                  type="text"
-                  placeholder="Username"
-                />
-              </div>
-              <div className="flex flex-1 flex-col">
-                <label>Email</label>
-                <input
-                  defaultValue={currentUser?.email}
-                  className="border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
-                  type="text"
-                  placeholder="Email"
-                />
-              </div>
-              <button className="w-full bg-secondary text-white rounded-lg p-1 hover:opacity-90 hover:scale-105 transition-all duration-300">
-                Apply
-              </button>
-            </div>
+            <UserNameAndEmailChange />
           </div>
           <Divider />
           <div className="my-3">
             <div className="p-5">
               <h2 className="text-2xl mb-2">Danger Zone</h2>
               <div className="border-2 border-primary rounded-lg">
-                <div className="p-5">
-                  <input
-                    className="w-full border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
-                    type="text"
-                    placeholder="Password"
-                  />
+                <div className="p-5 ">
+                  <label>Change password</label>
+                  <div className="gap-4 flex">
+                    <input
+                      className="w-full border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
+                      type="password"
+                      placeholder="Password"
+                    />
+                    <button className="bg-primary hover:opacity-90 hover:scale-105 transition-all duration-300 text-white rounded-md p-2">
+                      Apply
+                    </button>
+                  </div>
                 </div>
                 <Divider />
-                <div className="p-5">
+                <div className="p-5 flex flex-col gap-2">
+                  <div className="border-2 border-red-700 rounded-lg bg-gray-100 p-1">
+                    <p className="text-primary text-sm text-center">
+                      <strong>Warning! </strong>
+                      Deleting your account will permanently remove all your
+                      data and cannot be undone.
+                    </p>
+                  </div>
                   <button className="bg-primary rounded-lg round-lg text-white p-1 w-full hover:opacity-90 hover:scale-105 transition-all duration-300">
                     Delete Account
                   </button>

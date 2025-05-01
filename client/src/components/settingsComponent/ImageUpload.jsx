@@ -1,9 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { ID, storage } from "../../config/appWrite";
 import { backEndBaseURL } from "../../utils/backendBaseURL";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import { imageSrc } from "../../utils/imageAppwriteUrl";
+import {
+  updateUserFailure,
+  updateUserSuccess,
+  updateUserStart,
+} from "../../redux/user/userSlice";
 
 function ImageUpload() {
   const { currentUser } = useSelector((state) => state.user);
@@ -11,6 +16,7 @@ function ImageUpload() {
   const fileRef = useRef(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (file) {
       handleFileUpload();
@@ -18,7 +24,7 @@ function ImageUpload() {
   }, [file]);
   const handleFileUpload = async () => {
     try {
-      setLoading(true);
+      dispatch(updateUserStart());
       const now = new Date();
       const timestamp = `${now.getFullYear()}${String(
         now.getMonth() + 1
@@ -62,12 +68,12 @@ function ImageUpload() {
           }
         );
         const data = await response.json();
-        console.log("Updated avatar:", data);
+        dispatch(updateUserSuccess(data));
         setLoading(false);
       }
     } catch (error) {
       console.error("Upload failed:", error);
-      setLoading(false);
+      dispatch(updateUserFailure(error.message));
     }
   };
   return (
