@@ -10,6 +10,7 @@ import { imageSrc } from "../utils/imageAppwriteUrl";
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  const { openModalId } = useSelector((state) => state.modal);
   const myImage = imageSrc(currentUser?.avatar);
   return (
     <>
@@ -51,7 +52,7 @@ const Header = () => {
         </div>
       </header>
       <Modal title={"Welcome to NestNexus"} modalId="authModal">
-        <CombineSignInandUp />
+        <CombineSignInandUp isVisible={openModalId === "authModal"} />
       </Modal>
     </>
   );

@@ -3,7 +3,7 @@ import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 import SwitchingTabs from "../components/SwitchingTabs";
 
-function CombineSignInandUp() {
+function CombineSignInandUp({ isVisible }) {
   const tabs = [
     { id: "signIn", name: "Sign In" },
     { id: "signUp", name: "Sign Up" },
@@ -13,7 +13,9 @@ function CombineSignInandUp() {
     signUp: <SignUpForm />,
   };
 
-  return <SwitchingTabs tabs={tabs} tabContent={tabContent} />;
+  return (
+    <SwitchingTabs tabs={tabs} tabContent={tabContent} isVisible={isVisible} />
+  );
 }
 
 export default CombineSignInandUp;

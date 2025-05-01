@@ -1,25 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 
-function SwitchingTabs({ tabs, tabContent }) {
+function SwitchingTabs({ tabs, tabContent, isVisible }) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const [underlineStyle, setUnderlineStyle] = useState({ width: 0, left: 0 });
   const tabRefs = useRef({});
+  //for switchtab at modal
+  useEffect(() => {
+    if (isVisible && tabRefs.current[activeTab]) {
+      const frame = requestAnimationFrame(() => {
+        const { offsetLeft, offsetWidth } = tabRefs.current[activeTab];
+        setUnderlineStyle({ left: offsetLeft, width: offsetWidth });
+      });
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [isVisible, activeTab]);
 
-  // First: set underline whenever activeTab changes
+  //for normal switchtab
   useEffect(() => {
     if (tabRefs.current[activeTab]) {
       const { offsetLeft, offsetWidth } = tabRefs.current[activeTab];
       setUnderlineStyle({ left: offsetLeft, width: offsetWidth });
     }
   }, [activeTab]);
-
-  // Second: after first render, initialize underline for default tab
-  useEffect(() => {
-    if (tabRefs.current[activeTab]) {
-      const { offsetLeft, offsetWidth } = tabRefs.current[activeTab];
-      setUnderlineStyle({ left: offsetLeft, width: offsetWidth });
-    }
-  }, [tabs, activeTab]); // depends on tabs array (first render)
 
   return (
     <div className="w-full">
