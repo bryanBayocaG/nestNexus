@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "../Modal";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../redux/modalState/modalSlice";
+import { closeModal, openModal } from "../../redux/modalState/modalSlice";
 
 function ChangePassword() {
   const dispatch = useDispatch();
@@ -25,7 +25,26 @@ function ChangePassword() {
       </div>
 
       <Modal title="Changing Password" modalId="editPassword">
-        <p>hello</p>
+        <div className="p-2 flex flex-col gap-4">
+          <div className="border-2 border-red-700 rounded-lg bg-gray-100 p-1">
+            <p className="text-primary text-sm text-center">
+              <strong>Note: </strong>
+              For your security, changing your password will end your current
+              session and log you out from all devices.
+            </p>
+          </div>
+          <div className="flex gap-6 justify-center">
+            <button className="p-2 px-4 rounded-md bg-primary text-white hover:opacity-90">
+              Proceed
+            </button>
+            <button
+              onClick={() => dispatch(closeModal())}
+              className="p-2 px-4 rounded-md border-2 border-gray-200 hover:bg-gray-200 "
+            >
+              Decline
+            </button>
+          </div>
+        </div>
       </Modal>
     </>
   );

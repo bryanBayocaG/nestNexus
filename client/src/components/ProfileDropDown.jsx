@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Divider from "./Divider";
+import useSignOut from "../hooks/signOut";
 
 function ProfileDropDown({ imgSrc, userName }) {
+  const signOut = useSignOut();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -47,13 +49,12 @@ function ProfileDropDown({ imgSrc, userName }) {
               Settings
             </Link>
             <Divider />
-            <Link
-              to="/logout"
+            <button
               className="w-full pl-1 text-start rounded-md hover:bg-primary hover:text-white"
-              onClick={() => setIsOpen(false)}
+              onClick={signOut}
             >
-              Logout
-            </Link>
+              Sign out
+            </button>
           </ul>
         </div>
       )}
