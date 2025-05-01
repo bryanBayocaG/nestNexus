@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/dbConfig.js";
 import authRouter from "./routes/auth.route.js";
+import userRouter from "./routes/user.route.js";
 import cors from "cors";
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.listen(PORT, () => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 //middleware for handling errors
 app.use((err, req, res, next) => {

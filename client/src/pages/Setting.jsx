@@ -1,43 +1,9 @@
 import { useSelector } from "react-redux";
 import Divider from "../components/Divider";
-import { useRef, useState, useEffect } from "react";
-import { storage, ID } from "../config/appWrite";
+import ImageUpload from "../components/settingsComponent/imageUpload";
 
 function Setting() {
-  const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
-  const [file, setFile] = useState(null);
-  useEffect(() => {
-    if (file) {
-      handleFileUpload();
-    }
-  }, [file]);
-
-  const handleFileUpload = async () => {
-    try {
-      const res = await storage.createFile(
-        import.meta.env.VITE_nestNexusProfile,
-        ID.unique(),
-        file
-      );
-      if (res) {
-        const response = await fetch("", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user: currentUser._id,
-            avatar: res.$id,
-          }),
-        });
-        const data = response.json();
-        console.log(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div className="flex justify-center ">
@@ -59,26 +25,7 @@ function Setting() {
           </div>
           <Divider />
           <div className="flex gap-3 md:gap-6 lg:gap-10 items-center p-5">
-            <div className="relative p-1 shadow-lg bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
-              <input
-                onChange={(e) => setFile(e.target.files[0])}
-                type="file"
-                ref={fileRef}
-                hidden
-                accept="image/*"
-              />
-              <img
-                src={currentUser?.avatar}
-                alt={currentUser?.userName}
-                className="rounded-full"
-              />
-              <div
-                onClick={() => fileRef.current.click()}
-                className="opacity-0 hover:opacity-60 hover:cursor-pointer bg-slate-900  absolute top-0 left-0 w-full h-full rounded-full flex justify-center items-center"
-              >
-                <p className="text-white text-center">Change image</p>
-              </div>
-            </div>
+            <ImageUpload />
             <div className="flex w-[60%] gap-2 flex-col">
               <div className="flex flex-col">
                 <label>Username</label>
