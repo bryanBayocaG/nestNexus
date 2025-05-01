@@ -42,7 +42,7 @@ function Setting() {
                       data and cannot be undone.
                     </p>
                   </div>
-                  <button className="bg-primary rounded-lg round-lg text-white p-1 w-full hover:opacity-90 hover:scale-105 transition-all duration-300">
+                  <button className="bg-primary py-2 rounded-lg round-lg text-white p-1 w-full hover:opacity-90 hover:scale-105 transition-all duration-300">
                     Delete Account
                   </button>
                 </div>

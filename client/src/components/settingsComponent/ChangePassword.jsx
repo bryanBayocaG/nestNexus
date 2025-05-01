@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "../Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "../../redux/modalState/modalSlice";
+import { backEndBaseURL } from "../../utils/backendBaseURL";
+import useSignOut from "../../hooks/signOut";
 
 function ChangePassword() {
   const dispatch = useDispatch();
+  const [password, setPassword] = useState("");
+  const { currentUser } = useSelector((state) => state.user);
+  const signOut = useSignOut();
+  console.log(password);
+  const handleProceed = async () => {
+    try {
+      await fetch(`${backEndBaseURL}/api/user/user_update/${currentUser._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ password }),
+      });
+      signOut();
+    } catch (error) {
+      console.log("change password failed", error);
+    }
+  };
   return (
     <>
       <div className="p-5">
@@ -14,6 +35,7 @@ function ChangePassword() {
             className="w-full p-2 bg-transparent focus:outline-none outline-none"
             type="password"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button
             onClick={() => dispatch(openModal("editPassword"))}
@@ -34,12 +56,15 @@ function ChangePassword() {
             </p>
           </div>
           <div className="flex gap-6 justify-center">
-            <button className="p-2 px-4 rounded-md bg-primary text-white hover:opacity-90">
+            <button
+              onClick={handleProceed}
+              className="p-2 px-4 rounded-md bg-primary text-white hover:opacity-90 hover:scale-105 transition-all duration-300"
+            >
               Proceed
             </button>
             <button
               onClick={() => dispatch(closeModal())}
-              className="p-2 px-4 rounded-md border-2 border-gray-200 hover:bg-gray-200 "
+              className="p-2 px-4 rounded-md border-2 border-gray-200 hover:bg-gray-200 hover:scale-105 transition-all duration-300"
             >
               Decline
             </button>

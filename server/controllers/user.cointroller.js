@@ -8,7 +8,7 @@ export const updateUserCredential = async (req, res, next) => {
     return next(errorHandler(401, "You can only update your own account!"));
   try {
     if (req.body.password) {
-      req.body.password = bcryptjs.hashSync(req.body.passworda, 10);
+      req.body.password = bcryptjs.hashSync(req.body.password, 10);
     }
     const updateUser = await User.findByIdAndUpdate(
       req.params.id,

@@ -11,6 +11,7 @@ const app = express();
 connectDB();
 
 app.use(express.json());
+console.log("Allowed origin:", process.env.ALLOWED_URL);
 app.use(
   cors({
     origin: [`${process.env.ALLOWED_URL}`],

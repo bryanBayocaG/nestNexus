@@ -51,10 +51,10 @@ export const googleSignIn = async (req, res, next) => {
         .status(200)
         .json(userDetails);
     } else {
-      const gebneratedPassword =
+      const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
-      const hashedPassword = bcryptjs.hashSync(gebneratedPassword, 10);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
       const newUser = new User({
         userName:
           req.body.name.split(" ").join("").toLowerCase() +
