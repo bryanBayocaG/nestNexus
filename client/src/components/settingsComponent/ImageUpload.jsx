@@ -23,8 +23,8 @@ function ImageUpload() {
     }
   }, [file]);
   const handleFileUpload = async () => {
+    setLoading(true);
     try {
-      dispatch(updateUserStart());
       const now = new Date();
       const timestamp = `${now.getFullYear()}${String(
         now.getMonth() + 1
@@ -54,6 +54,8 @@ function ImageUpload() {
         ID.custom(fileID),
         file
       );
+
+      console.log("imageupload", res);
       if (res) {
         const response = await fetch(
           `${backEndBaseURL}/api/user/user_update/${currentUser._id}`,
@@ -62,6 +64,7 @@ function ImageUpload() {
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({
               avatar: res.$id,
             }),
@@ -73,9 +76,10 @@ function ImageUpload() {
       }
     } catch (error) {
       console.error("Upload failed:", error);
-      dispatch(updateUserFailure(error.message));
+      setLoading(false);
     }
   };
+  console.log("current image", myImage);
   return (
     <div className="relative p-5 shadow-lg bg-bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
       <input
