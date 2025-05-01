@@ -4,11 +4,7 @@ import { backEndBaseURL } from "../../utils/backendBaseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { PulseLoader } from "react-spinners";
 import { imageSrc } from "../../utils/imageAppwriteUrl";
-import {
-  updateUserFailure,
-  updateUserSuccess,
-  updateUserStart,
-} from "../../redux/user/userSlice";
+import { updateUserSuccess } from "../../redux/user/userSlice";
 
 function ImageUpload() {
   const { currentUser } = useSelector((state) => state.user);
@@ -37,11 +33,11 @@ function ImageUpload() {
       try {
         await storage.getFile(
           import.meta.env.VITE_nestNexusProfile,
-          currentUser._id
+          currentUser.avatar
         );
         await storage.deleteFile(
           import.meta.env.VITE_nestNexusProfile,
-          currentUser._id
+          currentUser.avatar
         );
       } catch (err) {
         if (err.code !== 404) {
@@ -81,7 +77,7 @@ function ImageUpload() {
   };
   console.log("current image", myImage);
   return (
-    <div className="relative p-5 shadow-lg bg-bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
+    <div className="relative p-2 shadow-lg bg-bg-white rounded-full hover:scale-105 transition-all duration-300 ease-in-out">
       <input
         onChange={(e) => setFile(e.target.files[0])}
         type="file"
@@ -89,7 +85,7 @@ function ImageUpload() {
         hidden
         accept="image/*"
       />
-      <div className="rounded-full w-24 h-24 flex items-center">
+      <div className="rounded-full shadow-lg w-24 h-24 flex items-center overflow-hidden">
         <img src={myImage} alt={currentUser?.userName} className="" />
       </div>
       <div
