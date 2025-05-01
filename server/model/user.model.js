@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default:
-        "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg",
+      default: "681204e30024e141fdbb",
     },
   },
   {

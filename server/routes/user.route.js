@@ -1,7 +1,8 @@
 import express from "express";
-import { profileUpdate } from "../controllers/user.cointroller.js";
+import { updateUserCredential } from "../controllers/user.cointroller.js";
+import { verifyToken } from "../utils/verifyUser.js";
 const router = express.Router();
 
-router.post("/avatar_update", profileUpdate);
+router.post("/user_update/:id", verifyToken, updateUserCredential);
 
 export default router;

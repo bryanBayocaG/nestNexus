@@ -6,9 +6,11 @@ import CombineSignInandUp from "../forms/CombineSignInandUp";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../redux/modalState/modalSlice";
 import ProfileDropDown from "./ProfileDropDown";
+import { imageSrc } from "../utils/imageAppwriteUrl";
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  const myImage = imageSrc(currentUser?.avatar);
   return (
     <>
       <header className="bg-white shadow-md rounded-2xl mx-2 md:mx-10 sticky top-0 z-50">
@@ -34,7 +36,7 @@ const Header = () => {
             </Link>
             {currentUser ? (
               <ProfileDropDown
-                imgSrc={currentUser?.avatar}
+                imgSrc={myImage}
                 userName={currentUser?.userName}
               />
             ) : (
