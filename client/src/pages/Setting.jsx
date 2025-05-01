@@ -1,4 +1,5 @@
 import Divider from "../components/Divider";
+import ChangePassword from "../components/settingsComponent/ChangePassword";
 import ImageUpload from "../components/settingsComponent/imageUpload";
 import UserNameAndEmailChange from "../components/settingsComponent/UserNameAndEmailChange";
 
@@ -31,19 +32,7 @@ function Setting() {
             <div className="p-5">
               <h2 className="text-2xl mb-2">Danger Zone</h2>
               <div className="border-2 border-primary rounded-lg">
-                <div className="p-5 ">
-                  <label>Change password</label>
-                  <div className="gap-4 flex">
-                    <input
-                      className="w-full border border-gray-200 p-1 rounded-lg focus:border-secondary outline-none"
-                      type="password"
-                      placeholder="Password"
-                    />
-                    <button className="bg-primary hover:opacity-90 hover:scale-105 transition-all duration-300 text-white rounded-md p-2">
-                      Apply
-                    </button>
-                  </div>
-                </div>
+                <ChangePassword />
                 <Divider />
                 <div className="p-5 flex flex-col gap-2">
                   <div className="border-2 border-red-700 rounded-lg bg-gray-100 p-1">

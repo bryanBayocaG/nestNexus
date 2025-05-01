@@ -42,7 +42,7 @@ const Header = () => {
             ) : (
               <li
                 className="bg-secondary text-white rounded-lg px-4 py-2 cursor-pointer hover:bg-primary transition duration-300 ease-in-out"
-                onClick={() => dispatch(openModal())}
+                onClick={() => dispatch(openModal("authModal"))}
               >
                 Sign Up
               </li>
@@ -50,7 +50,7 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      <Modal title={"Welcome to NestNexus"}>
+      <Modal title={"Welcome to NestNexus"} modalId="authModal">
         <CombineSignInandUp />
       </Modal>
     </>

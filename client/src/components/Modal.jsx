@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../redux/modalState/modalSlice";
-function Modal({ children, title }) {
+function Modal({ children, title, modalId }) {
   const dispatch = useDispatch();
-  const { isOpen } = useSelector((state) => state.modal);
+  const { openModalId } = useSelector((state) => state.modal);
+  const isOpen = openModalId === modalId;
   return (
     <>
       <style>
