@@ -14,9 +14,6 @@ function Setting() {
             <li className="w-full px-4 pl-1 text-start rounded-md hover:bg-gray-200">
               Profile settings
             </li>
-            <li className="w-full pl-1 text-start rounded-md hover:bg-gray-200">
-              Listing
-            </li>
           </ul>
         </div>
         <div className="flex-1 shadow-lg rounded-md">

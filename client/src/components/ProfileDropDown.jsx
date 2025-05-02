@@ -42,6 +42,13 @@ function ProfileDropDown({ imgSrc, userName }) {
           <Divider />
           <ul className="py-2 flex flex-col items-start">
             <Link
+              to="/listing"
+              className="w-full mb-2 pl-1 text-start rounded-md hover:bg-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              Listing
+            </Link>
+            <Link
               to="/settings"
               className="w-full mb-2 pl-1 text-start rounded-md hover:bg-gray-100"
               onClick={() => setIsOpen(false)}

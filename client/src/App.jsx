@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 // import SignIn from "./pages/signIn";
 import AboutPage from "./pages/AboutPage";
+import ListingPage from "./pages/ListingPage";
 import SignOut from "./pages/SignOut";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoute";
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/sign-out" element={<SignOut />} />
           <Route element={<PrivateRoute />}>
             <Route path="/settings" element={<Setting />} />
+            <Route path="/listing" element={<ListingPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
