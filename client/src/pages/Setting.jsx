@@ -1,6 +1,7 @@
 import Divider from "../components/Divider";
 import ChangePassword from "../components/settingsComponent/ChangePassword";
 import ImageUpload from "../components/settingsComponent/imageUpload";
+import UserDelete from "../components/settingsComponent/UserDelete";
 import UserNameAndEmailChange from "../components/settingsComponent/UserNameAndEmailChange";
 
 function Setting() {
@@ -34,18 +35,7 @@ function Setting() {
               <div className="border-2 border-primary rounded-lg">
                 <ChangePassword />
                 <Divider />
-                <div className="p-5 flex flex-col gap-2">
-                  <div className="border-2 border-red-700 rounded-lg bg-gray-100 p-1">
-                    <p className="text-primary text-sm text-center">
-                      <strong>Warning! </strong>
-                      Deleting your account will permanently remove all your
-                      data and cannot be undone.
-                    </p>
-                  </div>
-                  <button className="bg-primary py-2 rounded-lg round-lg text-white p-1 w-full hover:opacity-90 hover:scale-105 transition-all duration-300">
-                    Delete Account
-                  </button>
-                </div>
+                <UserDelete />
               </div>
             </div>
           </div>
