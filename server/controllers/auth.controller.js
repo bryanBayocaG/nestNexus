@@ -40,6 +40,15 @@ export const signIn = async (req, res, next) => {
   }
 };
 
+export const signOut = (req, res, next) => {
+  try {
+    res.clearCookie("access_token");
+    res.status(200).json("user logged out");
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const googleSignIn = async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
