@@ -12,7 +12,7 @@ import Setting from "./pages/Setting";
 export default function App() {
   return (
     <BrowserRouter>
-      <div className=" flex flex-col min-h-screen ">
+      <div className="flex flex-col min-h-screen ">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
