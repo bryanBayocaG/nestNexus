@@ -26,7 +26,7 @@ function FileUpload() {
         onClick={() => fileRef.current.click()}
         className="my-4 border-2 flex justify-center border-gray-100 p-3 rounded-lg cursor-pointer  shadow-lg"
       >
-        <div className="flex flex-col items-center border-2 border-gray-200 p-4 rounded-md text-gray-500">
+        <div className="flex flex-col items-center border-2 px-10 border-gray-200 p-4 rounded-md text-gray-500">
           <CiImageOn className=" w-10 h-10" />
           <p>Upload a file.</p>
         </div>
