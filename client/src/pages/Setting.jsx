@@ -1,6 +1,6 @@
 import Divider from "../components/Divider";
 import ChangePassword from "../components/settingsComponent/ChangePassword";
-import ImageUpload from "../components/settingsComponent/imageUpload";
+import ImageUpload from "../components/settingsComponent/ImageUpload";
 import UserDelete from "../components/settingsComponent/UserDelete";
 import UserNameAndEmailChange from "../components/settingsComponent/UserNameAndEmailChange";
 
