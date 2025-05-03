@@ -32,7 +32,11 @@ export const signIn = async (req, res, next) => {
     });
     const { password: pass, ...userDetails } = validUser._doc;
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      })
       .status(200)
       .json(userDetails);
   } catch (error) {
@@ -56,7 +60,11 @@ export const googleSignIn = async (req, res, next) => {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: pass, ...userDetails } = user._doc;
       res
-        .cookie("access_token", token, { httpOnly: true })
+        .cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        })
         .status(200)
         .json(userDetails);
     } else {

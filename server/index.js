@@ -23,7 +23,6 @@ app.use(
 app.use(cookieParser());
 
 app.get("/", async (req, res) => {
-  // res.send("nestNexus API is running right now!");
   res.send(`this is in ${process.env.NODE_ENV}`);
 });
 
