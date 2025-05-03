@@ -23,7 +23,7 @@ app.use(
 app.use(cookieParser());
 
 app.get("/", async (req, res) => {
-  res.send("nestNexus API is running");
+  res.send("nestNexus API is running right now!");
 });
 
 const PORT = process.env.PORT || 3000;
