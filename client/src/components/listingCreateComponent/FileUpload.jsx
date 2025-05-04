@@ -4,9 +4,10 @@ import { ID, storage } from "../../config/appWrite";
 import { PulseLoader } from "react-spinners";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-function FileUpload({ formData, setFormData }) {
+function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [upLoading, setUpLoading] = useState(false);
+
+  // const [upLoading, setUpLoading] = useState(false);
   const fileRef = useRef(null);
   const onSelectFile = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -22,6 +23,7 @@ function FileUpload({ formData, setFormData }) {
 
     e.target.value = null;
   };
+  console.log("selectedImages", selectedImages);
   const handleImageUpload = () => {
     if (selectedImages.length < 6 && selectedImages.length > 0) {
       setUpLoading(true);
@@ -36,6 +38,8 @@ function FileUpload({ formData, setFormData }) {
             ],
           });
           setUpLoading(false);
+          setSelectedImages([]);
+          fileRef.current.value = null;
         })
         .catch((err) => {
           console.error("Upload error", err);
@@ -83,15 +87,15 @@ function FileUpload({ formData, setFormData }) {
             <div className="flex flex-col items-center gap-2 mb-2">
               <CiImageOn className=" w-10 h-10" />
               <p className="text-gray-500 text-sm">
-                Current images uploaded ({selectedImages.length}):
+                Current selected images ({selectedImages.length}):
               </p>
             </div>
             <div
               onClick={(e) => e.stopPropagation()}
               className="flex w-full flex-col flex-wrap gap-2 p-2"
             >
+              <p>Preview:</p>
               {selectedImages.map((image, index) => {
-                console.log("image", image);
                 return (
                   <div
                     key={index}
@@ -120,7 +124,6 @@ function FileUpload({ formData, setFormData }) {
                       className="flex text-white bg-primary p-2 cursor-pointer transition duration-200 ease-in-out hover:scale-105 rounded-md"
                     >
                       <FaRegTrashAlt className="w-6 h-6" />
-                      <span>Delete</span>
                     </div>
                   </div>
                 );
