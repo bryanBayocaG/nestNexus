@@ -117,6 +117,7 @@ function CreateListing() {
                 id="description"
                 className="border border-gray-400 p-3 rounded-lg focus:border-secondary outline-none"
                 type="text"
+                rows="10"
                 placeholder="Description"
                 required
                 onChange={handleChange}

@@ -6,8 +6,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
   const [selectedImages, setSelectedImages] = useState([]);
-
-  // const [upLoading, setUpLoading] = useState(false);
+  const [error, setError] = useState(null);
   const fileRef = useRef(null);
   const onSelectFile = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -24,7 +23,7 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
     e.target.value = null;
   };
   const handleImageUpload = () => {
-    if (selectedImages.length < 6 && selectedImages.length > 0) {
+    if (selectedImages.length < 7 && selectedImages.length > 0) {
       setUpLoading(true);
       const promises = selectedImages.map(({ file }) => storeImage(file));
       Promise.all(promises)
@@ -37,13 +36,16 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
             ],
           });
           setUpLoading(false);
+          setError(null);
           setSelectedImages([]);
           fileRef.current.value = null;
         })
         .catch((err) => {
-          console.error("Upload error", err);
+          setError("Upload error: ", err.message);
           setUpLoading(false);
         });
+    } else {
+      setError("You can only upload 6 images at a time.");
     }
   };
 
@@ -130,6 +132,14 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
             </div>
 
             <div onClick={(e) => e.stopPropagation()}>
+              {error && (
+                <div className="my-2 border-2 border-red-700 rounded-lg bg-gray-100 p-1">
+                  <p className="text-primary text-sm text-center">
+                    <strong>Error: </strong>
+                    {error}
+                  </p>
+                </div>
+              )}
               <button
                 onClick={handleImageUpload}
                 className={`bg-secondary text-white px-4 py-2 rounded-md shadow-md ${
