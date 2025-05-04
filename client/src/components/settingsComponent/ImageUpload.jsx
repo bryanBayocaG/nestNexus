@@ -86,7 +86,11 @@ function ImageUpload() {
         accept="image/*"
       />
       <div className="rounded-full shadow-lg w-24 h-24 flex items-center overflow-hidden">
-        <img src={myImage} alt={currentUser?.userName} className="" />
+        <img
+          src={myImage}
+          alt={currentUser?.userName}
+          referrerPolicy="no-referrer"
+        />
       </div>
       <div
         onClick={() => fileRef.current.click()}

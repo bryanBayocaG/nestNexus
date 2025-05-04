@@ -1,7 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import FileUpload from "../components/listingCreateComponent/FileUpload";
 
 function ListingPage() {
+  const [formData, setFormData] = useState({
+    imageUrls: [],
+  });
   return (
     <main className="w-[95vw] m-auto mt-6 flex gap-4">
       <div className="hidden md:block shadow-lg h-fit p-4 rounded-lg border-2 border-gray-100">
@@ -128,7 +131,7 @@ function ListingPage() {
             </div>
           </div>
           <div className="flex-1 p-5">
-            <FileUpload />
+            <FileUpload formData={formData} setFormData={setFormData} />
             <button
               type="submit"
               className="w-full bg-secondary text-white rounded-lg p-1 hover:opacity-90 hover:scale-105 transition-all duration-300"

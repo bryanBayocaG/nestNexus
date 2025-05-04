@@ -29,6 +29,7 @@ function ProfileDropDown({ imgSrc, userName }) {
         <img
           src={imgSrc}
           alt="profile"
+          referrerPolicy="no-referrer"
           className="w-10 h-10 rounded-full object-cover cursor-pointer hover:scale-105 transition duration-300 ease-in-out"
         />
       </button>

@@ -1,26 +1,63 @@
 import { useRef, useState } from "react";
 import { CiImageOn } from "react-icons/ci";
-import { CiSquareRemove } from "react-icons/ci";
+import { ID, storage } from "../../config/appWrite";
+import { PulseLoader } from "react-spinners";
+import { FaRegTrashAlt } from "react-icons/fa";
 
-function FileUpload() {
+function FileUpload({ formData, setFormData }) {
   const [selectedImages, setSelectedImages] = useState([]);
+  const [upLoading, setUpLoading] = useState(false);
   const fileRef = useRef(null);
   const onSelectFile = (e) => {
-    const selectedFile = e.target.files;
-    const selectedFileArray = Array.from(selectedFile);
-    const imageArray = selectedFileArray.map((file) => {
-      return URL.createObjectURL(file);
+    const selectedFiles = Array.from(e.target.files);
+    const newImages = selectedFiles.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+
+    setSelectedImages((prev) => {
+      const updated = [...prev, ...newImages].slice(0, 6);
+      return updated;
     });
-    setSelectedImages(
-      (prev) => {
-        const newImages = [...prev, ...imageArray];
-        if (newImages.length > 6) {
-          return newImages.slice(0, 6);
-        }
-        return newImages;
-      },
-      (e.target.value = null) // Reset the input value to allow re-uploading the same files
-    );
+
+    e.target.value = null;
+  };
+  const handleImageUpload = () => {
+    if (selectedImages.length < 6 && selectedImages.length > 0) {
+      setUpLoading(true);
+      const promises = selectedImages.map(({ file }) => storeImage(file));
+      Promise.all(promises)
+        .then((uploadedFiles) => {
+          setFormData({
+            ...formData,
+            imageUrls: [
+              ...(formData.imageUrls || []),
+              ...uploadedFiles.map((f) => f.$id),
+            ],
+          });
+          setUpLoading(false);
+        })
+        .catch((err) => {
+          console.error("Upload error", err);
+          setUpLoading(false);
+        });
+    }
+  };
+
+  const storeImage = async (image) => {
+    return new Promise((resolve, reject) => {
+      storage
+        .createFile(import.meta.env.VITE_nestNexusProfile, ID.unique(), image)
+        .then((res) => {
+          storage
+            .getFile(import.meta.env.VITE_nestNexusProfile, res.$id)
+            .then((fileData) => {
+              resolve(fileData);
+            })
+            .catch((err) => reject(err));
+        })
+        .catch((err) => reject(err));
+    });
   };
   return (
     <>
@@ -39,46 +76,82 @@ function FileUpload() {
       />
       <div
         onClick={() => fileRef.current.click()}
-        className="my-4 border-2 flex justify-center border-gray-100 p-3 rounded-lg cursor-pointer  shadow-lg"
+        className="my-4 border-2 flex justify-center border-gray-100 p-3 rounded-lg cursor-pointer shadow-lg"
       >
         {selectedImages.length > 0 ? (
-          <div className="flex flex-col items-center border boder-2 border-gray-200 rounded-md px-5 py-4">
-            <CiImageOn className=" w-10 h-10" />
-            <p className="text-gray-500 text-sm">
-              Current images uploaded ({selectedImages.length}):
-            </p>
+          <div className="flex flex-1 flex-col items-center gap-2 ">
+            <div className="flex flex-col items-center gap-2 mb-2">
+              <CiImageOn className=" w-10 h-10" />
+              <p className="text-gray-500 text-sm">
+                Current images uploaded ({selectedImages.length}):
+              </p>
+            </div>
             <div
               onClick={(e) => e.stopPropagation()}
-              className="flex justify-center flex-wrap gap-2 p-2"
+              className="flex w-full flex-col flex-wrap gap-2 p-2"
             >
               {selectedImages.map((image, index) => {
+                console.log("image", image);
                 return (
                   <div
                     key={index}
-                    className="relative group cursor-pointer shadow-md"
+                    className="cursor-pointer shadow-md flex justify-between items-center p-4 rounded-lg"
                   >
-                    <img
-                      src={image}
-                      alt="uploaded"
-                      className="w-20 h-20 object-cover rounded-md"
-                    />
-                    <div className="absolute p-1 top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-50 transition duration-200 ease-in-out rounded-md flex items-center justify-center">
-                      <div
-                        onClick={() => {
-                          setSelectedImages((prev) => {
-                            const newImages = [...prev];
-                            newImages.splice(index, 1);
-                            return newImages;
-                          });
-                        }}
-                        className="absolute top-0 right-0 rounded-full p-1 text-white"
-                      >
-                        <CiSquareRemove className="w-6 h-6" />
+                    <div className="flex relative flex-col gap-1 ">
+                      <img
+                        src={image.preview}
+                        alt="uploaded"
+                        className="w-auto h-20 object-cover rounded-md"
+                      />
+
+                      <div className="bg-gray-500 absolute w-fit bottom-0 left-0 opacity-40">
+                        <p className="text-white">{image.file.name}</p>
                       </div>
+                    </div>
+
+                    <div
+                      onClick={() => {
+                        setSelectedImages((prev) => {
+                          const newImages = [...prev];
+                          newImages.splice(index, 1);
+                          return newImages;
+                        });
+                      }}
+                      className="flex text-white bg-primary p-2 cursor-pointer transition duration-200 ease-in-out hover:scale-105 rounded-md"
+                    >
+                      <FaRegTrashAlt className="w-6 h-6" />
+                      <span>Delete</span>
                     </div>
                   </div>
                 );
               })}
+            </div>
+
+            <div onClick={(e) => e.stopPropagation()}>
+              <button
+                onClick={handleImageUpload}
+                className={`bg-secondary text-white px-4 py-2 rounded-md shadow-md ${
+                  upLoading
+                    ? ""
+                    : "hover:scale-105 transition duration-200 ease-in-out"
+                }`}
+                type="button"
+              >
+                {upLoading ? (
+                  <div className="flex items-center gap-2">
+                    <span>Uploading</span>
+                    <PulseLoader
+                      color="#ffffff"
+                      loading={upLoading}
+                      size={10}
+                      aria-label="pulse loader"
+                      data-testid="loader"
+                    />
+                  </div>
+                ) : (
+                  "Upload Image(s)"
+                )}
+              </button>
             </div>
           </div>
         ) : (
