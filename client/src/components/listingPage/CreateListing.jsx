@@ -95,9 +95,9 @@ function CreateListing() {
   };
   return (
     <>
-      <h3 className="font-bold text-1xl pl-1">Create Listing</h3>
+      <h3 className="font-bold text-1xl p-5">Create Listing</h3>
       <form onSubmit={handleSubmit} className="flex flex-col md:flex-row">
-        <div className="flex-1  p-5">
+        <div className="flex-1 p-5">
           <div className="flex flex-col gap-4 md:gap-2">
             <div className="flex flex-col">
               <label className="hidden md:block">Name</label>

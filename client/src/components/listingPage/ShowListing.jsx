@@ -10,40 +10,52 @@ function ShowListing({ isActive }) {
   const [userListing, setUserListing] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const res = await fetch(
+          `${backEndBaseURL}/api/user/listings/${currentUser._id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
+        const data = await res.json();
+        if (data.success === false) {
+          setError(data.message);
+          return;
+        }
+        setUserListing(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
     if (isActive) {
       fetchListings();
     }
-  }, [isActive]);
-  const fetchListings = async () => {
-    try {
-      const res = await fetch(
-        `${backEndBaseURL}/api/user/listings/${currentUser._id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      const data = await res.json();
-      if (data.success === false) {
-        setError(data.message);
-        return;
-      }
-      setUserListing(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-  console.log(userListing);
+  }, [isActive, currentUser._id]);
   return (
     <>
+      <div className="flex justify-between items-center bg-white p-2">
+        <h3 className="font-bold text-1xl">My Listing</h3>
+        <div className="flex items-center gap-4 md:gap-6 text-sm sm:text-lg">
+          <p>
+            Total number of listing(s): <span>{userListing.length}</span>
+          </p>
+        </div>
+      </div>
       {error && <div className="text-red-500">{error}</div>}
       {userListing.length > 0 ? (
         userListing &&
         userListing.map((listing) => (
-          <div className="border-2 border-gray-200 rounded-lg p-4 mb-4">
+          <div
+            key={listing._id}
+            // onClick={() => (window.location.href = `/listing/${listing._id}`)}
+            onClick={() => console.log("Listing clicked")}
+            className="border-2 border-gray-200 shadow-lg rounded-lg p-4 mb-4"
+          >
             <div className="relative mb-4">
               <img
                 className="h-48 w-full object-cover rounded-lg mb-4"
@@ -54,12 +66,22 @@ function ShowListing({ isActive }) {
                 onClick={(e) => e.stopPropagation()}
                 className="opacity-0 hover:opacity-100 absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 w-full h-full p-2 shadow-md gap-2 transition-all duration-300 ease-in-out"
               >
-                <div className="relative w-full h-full">
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full h-full flex flex-col justify-center items-center"
+                >
+                  <p className="text-gray-100">Edit or delete this listing.</p>
                   <div className="absolute top-2 right-2 flex gap-2">
-                    <button className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1">
+                    <button
+                      onClick={() => console.log("button edi clicked")}
+                      className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out"
+                    >
                       <FaRegEdit /> <span>Edit</span>
                     </button>
-                    <button className="bg-red-500 text-white rounded-md p-2 flex items-center gap-1">
+                    <button
+                      onClick={() => console.log("button delete clicked")}
+                      className="bg-red-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out"
+                    >
                       <FaRegTrashAlt /> <span>Delete</span>
                     </button>
                   </div>
