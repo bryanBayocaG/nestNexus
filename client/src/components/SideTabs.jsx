@@ -40,8 +40,11 @@ function SideTabs({ title, tabs, tabContent }) {
       </div>
 
       {/* viewdiv */}
-      <div className="flex-1 shadow-lg p-4 rounded-lg border-2 border-gray-100">
+      {/* <div className="flex-1 shadow-lg p-4 rounded-lg border-2 border-gray-100">
         {tabContent[activeTab]}
+      </div> */}
+      <div className="flex-1 shadow-lg p-4 rounded-lg border-2 border-gray-100">
+        {tabContent[activeTab]({ isActive: true })}
       </div>
     </main>
   );

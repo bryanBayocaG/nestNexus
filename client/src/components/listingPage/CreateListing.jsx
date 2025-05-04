@@ -89,7 +89,6 @@ function CreateListing() {
       }
       navigate(`/listing/${data._id}`);
     } catch (error) {
-      console.log(error);
       setError(error.message);
       setLoading(false);
     }

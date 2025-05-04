@@ -7,9 +7,11 @@ function CombineCreateandListingPages() {
     { id: "createListing", name: "Create Listing" },
     { id: "showListing", name: "Show Listing" },
   ];
+
+  // Notice we're storing the *component functions*, not JSX
   const tabContent = {
-    createListing: <CreateListing />,
-    showListing: <ShowListing />,
+    createListing: (props) => <CreateListing {...props} />,
+    showListing: (props) => <ShowListing {...props} />,
   };
   return <SideTabs title="Listing" tabs={tabs} tabContent={tabContent} />;
 }

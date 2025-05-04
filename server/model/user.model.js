@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: "681204e30024e141fdbb",
+      default: "6817604e0012938e7f27",
     },
   },
   {
