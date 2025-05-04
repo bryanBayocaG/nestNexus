@@ -23,7 +23,6 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
 
     e.target.value = null;
   };
-  console.log("selectedImages", selectedImages);
   const handleImageUpload = () => {
     if (selectedImages.length < 6 && selectedImages.length > 0) {
       setUpLoading(true);

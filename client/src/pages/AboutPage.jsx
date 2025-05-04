@@ -1,3 +1,4 @@
+import SideTabs from "../components/SideTabs";
 import SwitchingTabs from "../components/SwitchingTabs";
 
 function AboutPage() {
@@ -22,7 +23,7 @@ function AboutPage() {
   };
   return (
     <div className="flex flex-1 justify-center items-center ">
-      <SwitchingTabs tabs={tabs} tabContent={tabContent} />
+      <SideTabs tabs={tabs} tabContent={tabContent} />
     </div>
   );
 }
