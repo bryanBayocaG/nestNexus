@@ -39,7 +39,6 @@ function UpdateListingPage() {
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include",
           }
         );
         const data = await res.json();
@@ -54,7 +53,7 @@ function UpdateListingPage() {
     };
 
     fetchListing();
-  }, [params.listingId]);
+  }, [listingId]);
 
   const handleChange = (e) => {
     if (e.target.id === "sale" || e.target.id === "rent") {

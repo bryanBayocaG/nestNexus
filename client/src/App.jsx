@@ -9,6 +9,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import NotFoundPage from "./pages/NotFoundPage";
 import Setting from "./pages/Setting";
 import UpdateListingPage from "./pages/UpdateListingPage";
+import ListingInfoPage from "./pages/ListingInfoPage";
 
 export default function App() {
   return (
@@ -20,6 +21,10 @@ export default function App() {
           {/* <Route path="/sign-in" element={<SignIn />} /> */}
           <Route path="/about" element={<AboutPage />} />
           <Route path="/sign-out" element={<SignOut />} />
+          <Route
+            path="/listing-info/:listingId"
+            element={<ListingInfoPage />}
+          />
           <Route element={<PrivateRoute />}>
             <Route path="/settings" element={<Setting />} />
             <Route path="/listing" element={<ListingPage />} />

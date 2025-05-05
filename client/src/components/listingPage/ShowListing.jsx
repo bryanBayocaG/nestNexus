@@ -90,9 +90,10 @@ function ShowListing({ isActive }) {
         userListing.map((listing) => (
           <div
             key={listing._id}
-            // onClick={() => (window.location.href = `/listing/${listing._id}`)}
-            onClick={() => console.log("Listing clicked")}
-            className="border-2 border-gray-200 shadow-lg rounded-lg p-4 mb-4"
+            onClick={() =>
+              (window.location.href = `/listing-info/${listing._id}`)
+            }
+            className="border-2 border-gray-200 shadow-lg rounded-lg p-4 mb-4 cursor-pointer"
           >
             <div className="relative mb-4">
               <img
@@ -111,10 +112,7 @@ function ShowListing({ isActive }) {
                   <p className="text-gray-100">Edit or delete this listing.</p>
                   <div className="absolute top-2 right-2 flex gap-2">
                     <Link to={`/listing-update/${listing._id}`}>
-                      <button
-                        onClick={() => console.log("button edi clicked")}
-                        className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out"
-                      >
+                      <button className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out">
                         <FaRegEdit /> <span>Edit</span>
                       </button>
                     </Link>
