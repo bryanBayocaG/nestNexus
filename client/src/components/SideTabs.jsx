@@ -11,7 +11,7 @@ function SideTabs({ title, tabs, tabContent }) {
     }
   }, [activeTab]);
   return (
-    <main className="w-[95vw] m-auto mt-6 flex gap-4">
+    <main className="w-[95vw] h-fit m-auto mt-6 flex gap-4">
       <div className="hidden md:block shadow-lg h-fit p-4 rounded-lg border-2 border-gray-100">
         <h1 className="font-bold text-2xl pl-1">{title}</h1>
         <div className="relative flex flex-col gap-2 border-b">
