@@ -8,6 +8,7 @@ import Modal from "../Modal";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/modalState/modalSlice";
 import { closeModal } from "../../redux/modalState/modalSlice";
+import { Link } from "react-router-dom";
 
 function ShowListing({ isActive }) {
   const dispatch = useDispatch();
@@ -109,12 +110,14 @@ function ShowListing({ isActive }) {
                 >
                   <p className="text-gray-100">Edit or delete this listing.</p>
                   <div className="absolute top-2 right-2 flex gap-2">
-                    <button
-                      onClick={() => console.log("button edi clicked")}
-                      className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out"
-                    >
-                      <FaRegEdit /> <span>Edit</span>
-                    </button>
+                    <Link to={`/listing-update/${listing._id}`}>
+                      <button
+                        onClick={() => console.log("button edi clicked")}
+                        className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out"
+                      >
+                        <FaRegEdit /> <span>Edit</span>
+                      </button>
+                    </Link>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
