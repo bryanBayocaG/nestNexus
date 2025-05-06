@@ -12,6 +12,7 @@ const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { openModalId } = useSelector((state) => state.modal);
   const myImage = imageSrc(currentUser?.avatar);
+
   return (
     <>
       <header className="bg-white shadow-md z-50">

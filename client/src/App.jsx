@@ -10,8 +10,39 @@ import NotFoundPage from "./pages/NotFoundPage";
 import Setting from "./pages/Setting";
 import UpdateListingPage from "./pages/UpdateListingPage";
 import ListingInfoPage from "./pages/ListingInfoPage";
+import { useEffect } from "react";
+import { backEndBaseURL } from "./utils/backendBaseURL";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "./redux/user/userSlice";
 
 export default function App() {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await fetch(`${backEndBaseURL}/api/auth/check-session`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        if (data.success === false) {
+          console.log("Session expire", data.message);
+          dispatch(signOut());
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+        dispatch(signOut());
+      }
+    };
+    if (currentUser) {
+      checkSession();
+    }
+  }, [currentUser, dispatch]);
   return (
     <BrowserRouter>
       <div className="flex flex-col min-h-screen ">

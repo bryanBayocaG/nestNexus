@@ -113,12 +113,25 @@ function ListingInfoPage() {
               <div className="flex flex-1 flex-col gap-2 w-full p-5 md:border-2 border-gray-200 rounded-lg">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h1 className="text-xl md:text-4xl font-bold text-secondary">
-                      ${" "}
-                      {listing.offer
-                        ? listing.discountPrice.toLocaleString("en-US")
-                        : listing.regularPrice.toLocaleString("en-US")}
-                    </h1>
+                    <div className="text-xl md:text-4xl font-bold text-secondary">
+                      {/* {listing.offer
+                        ? (listing.discountPrice.toLocaleString("en-US")) 
+                        : (listing.regularPrice.toLocaleString("en-US"))} */}
+                      {listing.offer ? (
+                        <div className="flex gap-1 items-center">
+                          <h1>
+                            $ {listing.discountPrice.toLocaleString("en-US")}
+                          </h1>
+                          <p className="text-sm md:text-md px-2 p-1 bg-secondary text-white rounded-md">
+                            Discounted Price
+                          </p>
+                        </div>
+                      ) : (
+                        <h1>
+                          $ {listing.regularPrice.toLocaleString("en-US")}
+                        </h1>
+                      )}
+                    </div>
                     <h2 className="text-lg md:text-2xl font-semibold">
                       {listing.name}
                     </h2>
@@ -140,8 +153,19 @@ function ListingInfoPage() {
                   </div>
                 </div>
 
-                <div>
-                  <p>Type</p>
+                <div className="flex gap-2 md:gap-4 items-center">
+                  <p className="text-sm md:text-lg font-semibold text-white bg-secondary px-4 md:px-6 py-1 rounded-md">
+                    {listing.type === "rent" ? "For Rent" : "For Sale"}
+                  </p>
+                  {listing.offer && (
+                    <p className="text-sm md:text-lg font-semibold text-white bg-green-600 px-4 md:px-6 py-1 rounded-md">
+                      $
+                      {(
+                        listing.regularPrice - listing.discountPrice
+                      ).toLocaleString("en-US")}{" "}
+                      discount
+                    </p>
+                  )}
                 </div>
                 <Divider />
                 <div className="flex flex-col gap-2">

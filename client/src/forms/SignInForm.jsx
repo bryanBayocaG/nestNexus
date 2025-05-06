@@ -70,6 +70,7 @@ function SignInForm() {
         id="email"
         onChange={handleChange}
         required
+        autoComplete="email"
       />
       <input
         type="password"
@@ -79,6 +80,7 @@ function SignInForm() {
         id="password"
         onChange={handleChange}
         required
+        autoComplete="current-password"
       />
       <button
         type="submit"

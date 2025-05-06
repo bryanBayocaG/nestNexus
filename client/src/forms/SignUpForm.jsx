@@ -75,6 +75,7 @@ function SignUpForm() {
         id="email"
         onChange={handleChange}
         required
+        autoComplete="new-email"
       />
       <input
         type="password"
@@ -84,6 +85,7 @@ function SignUpForm() {
         id="password"
         onChange={handleChange}
         required
+        autoComplete="new-password"
       />
       <button
         type="submit"
