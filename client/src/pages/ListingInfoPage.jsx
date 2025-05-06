@@ -2,8 +2,17 @@ import { useEffect, useState } from "react";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 import { useParams } from "react-router-dom";
 import { HashLoader, PulseLoader } from "react-spinners";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import SwiperCore from "swiper";
+import { Navigation, Pagination } from "swiper/modules";
+import { imageSrc } from "../utils/imageAppwriteUrl";
+import { FaShare } from "react-icons/fa";
 
 function ListingInfoPage() {
+  const [copied, setCopied] = useState(false);
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
@@ -35,7 +44,7 @@ function ListingInfoPage() {
     };
     fectchListing();
   }, [params.listingId]);
-  console.log(listing);
+  console.log("fetched listing info", listing);
   return (
     <main className="flex flex-grow flex-col">
       {isLoading ? (
@@ -48,7 +57,7 @@ function ListingInfoPage() {
             data-testid="loader"
           />
           <div className="flex items-center justify-center gap-1 mt-2">
-            <p className="text-gray-500 text-center">Loading</p>
+            <p className="text-center">Loading</p>
             <PulseLoader
               color="#D4AF37"
               loading={isLoading}
@@ -60,16 +69,80 @@ function ListingInfoPage() {
         </div>
       ) : (
         listing && (
-          <div className="listing-info-page">
-            <h1>{listing.title}</h1>
-            <p>{listing.description}</p>
-            <p>Price: {listing.price}</p>
-            <p>Location: {listing.location}</p>
-            <p>Category: {listing.category}</p>
-            {listing.imageUrls.map((image, i) => (
-              <p key={i}>{image}</p>
-            ))}
-          </div>
+          <>
+            <div className=" p-5 relative">
+              <Swiper
+                spaceBetween={30}
+                pagination={{
+                  clickable: true,
+                }}
+                navigation={true}
+                modules={[Navigation, Pagination]}
+                className="mySwiper"
+              >
+                {listing.imageUrls.map((image, index) => (
+                  <SwiperSlide className="" key={index}>
+                    <img
+                      src={imageSrc(image)}
+                      alt="listing"
+                      className="w-full h-96 object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  setCopied(true);
+                  setTimeout(() => {
+                    setCopied(false);
+                  }, 1500);
+                }}
+                className="absolute border-2 border-secondary p-2 rounded-md top-12 right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer cursor-pointer"
+              >
+                <FaShare />
+              </div>
+              {copied && (
+                <div className="text-xs  ml-2 z-10 absolute top-24 right-12 bg-white p-2 rounded-md shadow-md">
+                  <p>Copied to clipboard</p>
+                </div>
+              )}
+            </div>
+            <div className="flex gap-2 p-5 shadow-lg overflow-y-auto">
+              <div className="flex  flex-1 flex-col gap-2 w-full p-5">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h1 className="text-4xl font-bold text-secondary">
+                      ${" "}
+                      {listing.offer
+                        ? +listing.discountedPrice.toLocaleString("en-US")
+                        : +listing.regularPrice.toLocaleString("en-US")}
+                    </h1>
+                    <h2 className="text-xl">{listing.name}</h2>
+                    <p>{listing.address}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex flex-col justify-center items-center gap-1">
+                      <div>{listing.bedroom}</div>
+                      <p className="text-lg">Bedrooms </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-1">
+                      <div>{listing.bathroom}</div>
+                      <p className="text-lg">Bathrooms</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p>Type</p>
+                <p>Desctiion</p>
+              </div>
+              <div className="border-2 border-gray-200 p-5 h-fit rounded-lg">
+                <button className="bg-secondary text-white px-4 py-2 rounded-md">
+                  Contact Agent
+                </button>
+              </div>
+            </div>
+          </>
         )
       )}
     </main>

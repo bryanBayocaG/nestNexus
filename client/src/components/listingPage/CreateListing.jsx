@@ -261,7 +261,7 @@ function CreateListing() {
             setUpLoading={setUpLoading}
           />
           <div className="flex my-5 flex-col gap-4 md:gap-2">
-            <p className="text-gray-600">
+            <p className="">
               <strong>Current uploaded:</strong> images for this listing:
             </p>
             <div className="flex flex-col  gap-2 shadow-lg p-5">
@@ -296,7 +296,7 @@ function CreateListing() {
                   );
                 })
               ) : (
-                <p className="text-gray-500">No images uploaded</p>
+                <p className="">No images uploaded</p>
               )}
             </div>
           </div>

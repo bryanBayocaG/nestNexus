@@ -109,7 +109,7 @@ function ShowListing({ isActive }) {
                   onClick={(e) => e.stopPropagation()}
                   className="relative w-full h-full flex flex-col justify-center items-center"
                 >
-                  <p className="text-gray-100">Edit or delete this listing.</p>
+                  <p className="text-white">Edit or delete this listing.</p>
                   <div className="absolute top-2 right-2 flex gap-2">
                     <Link to={`/listing-update/${listing._id}`}>
                       <button className="bg-blue-500 text-white rounded-md p-2 flex items-center gap-1 hover:scale-105 transition-all duration-300 ease-in-out">
@@ -131,22 +131,20 @@ function ShowListing({ isActive }) {
               </div>
             </div>
             <h3 className="font-bold text-xl">{listing.name}</h3>
-            <p className="text-gray-500">Price: ${listing.regularPrice}</p>
-            <p className="text-gray-500">Location: {listing.address}</p>
+            <p className="">Price: ${listing.regularPrice}</p>
+            <p className="">Location: {listing.address}</p>
           </div>
         ))
       ) : (
         <div className="flex flex-col justify-center items-center h-full">
           <h1 className="text-2xl font-bold">No Listings Found</h1>
-          <p className="text-gray-500">
-            You have not created any listings yet.
-          </p>
+          <p className="">You have not created any listings yet.</p>
         </div>
       )}
       <Modal title={"Delete this Listing"} modalId="deleteListingModal">
         <div className="flex flex-col justify-center items-center h-full">
           <h1 className="text-2xl font-bold">Are you sure?</h1>
-          <p className="text-gray-500">
+          <p className="">
             This action cannot be undone. Do you want to proceed?
           </p>
           <div className="flex gap-4 mt-4">

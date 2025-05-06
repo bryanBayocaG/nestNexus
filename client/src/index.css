@@ -4,7 +4,30 @@
 
 @layer base {
   body {
-    @apply text-dark;
+    @apply text-gray-500;
+
     font-family: "Inter", sans-serif;
   }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #d4af37 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  background: #d4af37 !important;
+}
+.swiper-pagination {
+  width: fit-content !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px); /* For Safari */
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  opacity: 1 !important;
 }

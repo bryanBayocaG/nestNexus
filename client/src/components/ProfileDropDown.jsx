@@ -37,7 +37,7 @@ function ProfileDropDown({ imgSrc, userName }) {
       {isOpen && (
         <div className="absolute md:w-48 bg-white border-2 border-gray-200 top-full right-0 rounded-lg p-3 mt-1 shadow-md z-50">
           <div className="flex flex-col items-start mb-4">
-            <p className="text-md text-gray-500">Signed in as</p>
+            <p className="text-md">Signed in as</p>
             <p className="text-sm">{userName}</p>
           </div>
           <Divider />

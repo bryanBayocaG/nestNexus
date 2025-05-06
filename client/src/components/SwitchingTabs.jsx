@@ -31,9 +31,7 @@ function SwitchingTabs({ tabs, tabContent, isVisible }) {
             key={tab.id}
             ref={(el) => (tabRefs.current[tab.id] = el)}
             className={`relative px-4 py-2 font-semibold transition-all duration-300 ${
-              activeTab === tab.id
-                ? "text-dark"
-                : "text-gray-500 hover:text-primary"
+              activeTab === tab.id ? "text-dark" : " hover:text-primary"
             }`}
             onClick={() => setActiveTab(tab.id)}
           >

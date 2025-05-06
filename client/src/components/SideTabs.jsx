@@ -22,7 +22,7 @@ function SideTabs({ title, tabs, tabContent }) {
               className={`relative px-4 py-2 font-semibold transition-all duration-300 ${
                 activeTab === tab.id
                   ? "text-secondary shadow-lg"
-                  : "text-gray-500 hover:text-primary"
+                  : " hover:text-primary"
               }`}
               onClick={() => setActiveTab(tab.id)}
             >

@@ -66,7 +66,7 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
   };
   return (
     <>
-      <p className="text-gray-600">
+      <p className="">
         <strong>Images: </strong>the first image will be the cover &#40;max
         6&#41;
       </p>
@@ -87,7 +87,7 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
           <div className="flex flex-1 flex-col items-center gap-2 ">
             <div className="flex flex-col items-center gap-2 mb-2">
               <CiImageOn className=" w-10 h-10" />
-              <p className="text-gray-500 text-sm">
+              <p className=" text-sm">
                 Current selected images ({selectedImages.length}):
               </p>
             </div>
@@ -167,7 +167,7 @@ function FileUpload({ formData, setFormData, upLoading, setUpLoading }) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center border-2 px-10 border-gray-200 p-4 rounded-md text-gray-500">
+          <div className="flex flex-col items-center border-2 px-10 border-gray-200 p-4 rounded-md ">
             <CiImageOn className=" w-10 h-10" />
             <p>Upload a file.</p>
           </div>
