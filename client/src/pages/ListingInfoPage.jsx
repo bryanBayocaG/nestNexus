@@ -109,8 +109,8 @@ function ListingInfoPage() {
                 </div>
               )}
             </div>
-            <div className="flex flex-col md:flex-row gap-2 p-2 md:p-5 shadow-lg">
-              <div className="flex flex-1 flex-col gap-2 w-full p-5 border-2 border-gray-200 rounded-lg">
+            <div className="flex flex-col md:flex-row gap-2  md:p-5 shadow-lg">
+              <div className="flex flex-1 flex-col gap-2 w-full p-5 md:border-2 border-gray-200 rounded-lg">
                 <div className="flex justify-between items-center">
                   <div>
                     <h1 className="text-xl md:text-4xl font-bold text-secondary">
