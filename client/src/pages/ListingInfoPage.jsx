@@ -86,7 +86,7 @@ function ListingInfoPage() {
                     <img
                       src={imageSrc(image)}
                       alt="listing"
-                      className="w-full h-96 object-cover"
+                      className="w-full h-52 md:h-96 object-cover"
                     />
                   </SwiperSlide>
                 ))}
@@ -99,7 +99,7 @@ function ListingInfoPage() {
                     setCopied(false);
                   }, 1500);
                 }}
-                className="absolute border-2 border-secondary p-2 rounded-md top-12 right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer cursor-pointer"
+                className="absolute border-2 border-secondary p-2 rounded-md top-12 right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
               >
                 <FaShare />
               </div>
@@ -152,7 +152,7 @@ function ListingInfoPage() {
                 </div>
               </div>
               <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-3 md:p-5 h-fit md:rounded-lg">
-                <button className="bg-secondary text-white w-full px-10 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out">
+                <button className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out">
                   Contact Agent
                 </button>
               </div>
