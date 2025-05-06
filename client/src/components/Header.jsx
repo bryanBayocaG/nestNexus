@@ -14,7 +14,7 @@ const Header = () => {
   const myImage = imageSrc(currentUser?.avatar);
   return (
     <>
-      <header className="bg-white shadow-md sticky top-0 z-50">
+      <header className="bg-white shadow-md z-50">
         <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
           <Link to="/">
             <h1 className="font-bold  text-sm sm:text-xl lg:text-2xl flex items-center flex-wrap">

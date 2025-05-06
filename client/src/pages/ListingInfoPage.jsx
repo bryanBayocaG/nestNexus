@@ -10,6 +10,7 @@ import SwiperCore from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
 import { imageSrc } from "../utils/imageAppwriteUrl";
 import { FaShare } from "react-icons/fa";
+import Divider from "../components/Divider";
 
 function ListingInfoPage() {
   const [copied, setCopied] = useState(false);
@@ -70,7 +71,7 @@ function ListingInfoPage() {
       ) : (
         listing && (
           <>
-            <div className=" p-5 relative">
+            <div className="p-2 md:p-5">
               <Swiper
                 spaceBetween={30}
                 pagination={{
@@ -108,36 +109,50 @@ function ListingInfoPage() {
                 </div>
               )}
             </div>
-            <div className="flex gap-2 p-5 shadow-lg overflow-y-auto">
-              <div className="flex  flex-1 flex-col gap-2 w-full p-5">
+            <div className="flex flex-col md:flex-row gap-2 p-2 md:p-5 shadow-lg">
+              <div className="flex flex-1 flex-col gap-2 w-full p-5 border-2 border-gray-200 rounded-lg">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h1 className="text-4xl font-bold text-secondary">
+                    <h1 className="text-xl md:text-4xl font-bold text-secondary">
                       ${" "}
                       {listing.offer
-                        ? +listing.discountedPrice.toLocaleString("en-US")
-                        : +listing.regularPrice.toLocaleString("en-US")}
+                        ? listing.discountPrice.toLocaleString("en-US")
+                        : listing.regularPrice.toLocaleString("en-US")}
                     </h1>
-                    <h2 className="text-xl">{listing.name}</h2>
-                    <p>{listing.address}</p>
+                    <h2 className="text-lg md:text-2xl font-semibold">
+                      {listing.name}
+                    </h2>
+                    <p className="text-xs md:text-base">{listing.address}</p>
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-2 md:gap-4">
                     <div className="flex flex-col justify-center items-center gap-1">
-                      <div>{listing.bedroom}</div>
-                      <p className="text-lg">Bedrooms </p>
+                      <div className="text-lg md:text-2xl">
+                        {listing.bedroom}
+                      </div>
+                      <p className="text-sm md:text-lg">Bedrooms </p>
                     </div>
                     <div className="flex flex-col justify-center items-center gap-1">
-                      <div>{listing.bathroom}</div>
-                      <p className="text-lg">Bathrooms</p>
+                      <div className="text-lg md:text-2xl">
+                        {listing.bathroom}
+                      </div>
+                      <p className="text-sm md:text-lg">Bathrooms</p>
                     </div>
                   </div>
                 </div>
 
-                <p>Type</p>
-                <p>Desctiion</p>
+                <div>
+                  <p>Type</p>
+                </div>
+                <Divider />
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-md md:text-xl font-bold">Description</h3>
+                  <p className="leading-relaxed text-xs md:text-base tracking-normal text-justify ">
+                    {listing.description}
+                  </p>
+                </div>
               </div>
-              <div className="border-2 border-gray-200 p-5 h-fit rounded-lg">
-                <button className="bg-secondary text-white px-4 py-2 rounded-md">
+              <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-3 md:p-5 h-fit md:rounded-lg">
+                <button className="bg-secondary text-white w-full px-10 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out">
                   Contact Agent
                 </button>
               </div>
