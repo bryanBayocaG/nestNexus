@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { backEndBaseURL } from "./utils/backendBaseURL";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "./redux/user/userSlice";
+import SearchPage from "./pages/SearchPage";
 
 export default function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -56,6 +57,7 @@ export default function App() {
             path="/listing-info/:listingId"
             element={<ListingInfoPage />}
           />
+          <Route path="/search" element={<SearchPage />} />
           <Route element={<PrivateRoute />}>
             <Route path="/settings" element={<Setting />} />
             <Route path="/listing" element={<ListingPage />} />
