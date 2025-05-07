@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
-// import { useState } from "react";
 import HeaderSearch from "../forms/HeaderSearch";
 import CombineSignInandUp from "../forms/CombineSignInandUp";
 import { useSelector, useDispatch } from "react-redux";

@@ -6,17 +6,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import SwiperCore from "swiper";
 import { Navigation, Pagination } from "swiper/modules";
 import { imageSrc } from "../utils/imageAppwriteUrl";
-import { FaShare } from "react-icons/fa";
+import { FaBath, FaBed, FaChair, FaShare } from "react-icons/fa";
 import Divider from "../components/Divider";
-
+import { BiSolidCarGarage } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import Modal from "../components/Modal";
+import { openModal } from "../redux/modalState/modalSlice";
+import ContactLandordFrom from "../forms/ContactLandordFrom";
 function ListingInfoPage() {
+  const dispatch = useDispatch();
   const [copied, setCopied] = useState(false);
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
+  const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
     const fectchListing = async () => {
       try {
@@ -71,7 +76,7 @@ function ListingInfoPage() {
       ) : (
         listing && (
           <>
-            <div className="p-2 md:p-5">
+            <div className="p-2 md:p-5 relative">
               <Swiper
                 spaceBetween={30}
                 pagination={{
@@ -99,7 +104,7 @@ function ListingInfoPage() {
                     setCopied(false);
                   }, 1500);
                 }}
-                className="absolute border-2 border-secondary p-2 rounded-md top-12 right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
+                className="absolute bg-white/30 backdrop-blur-sm border-2 border-secondary p-2 rounded-md top-12 right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
               >
                 <FaShare />
               </div>
@@ -113,10 +118,7 @@ function ListingInfoPage() {
               <div className="flex flex-1 flex-col gap-2 w-full p-5 md:border-2 border-gray-200 rounded-lg">
                 <div className="flex justify-between items-center">
                   <div>
-                    <div className="text-xl md:text-4xl font-bold text-secondary">
-                      {/* {listing.offer
-                        ? (listing.discountPrice.toLocaleString("en-US")) 
-                        : (listing.regularPrice.toLocaleString("en-US"))} */}
+                    <div className="text-xl md:text-2xl font-bold text-secondary">
                       {listing.offer ? (
                         <div className="flex gap-1 items-center">
                           <h1>
@@ -132,23 +134,45 @@ function ListingInfoPage() {
                         </h1>
                       )}
                     </div>
-                    <h2 className="text-lg md:text-2xl font-semibold">
+                    <h2 className="text-lg md:text-xl font-semibold">
                       {listing.name}
                     </h2>
-                    <p className="text-xs md:text-base">{listing.address}</p>
+                    <p className="text-xs lg:text-base">{listing.address}</p>
                   </div>
-                  <div className="flex gap-2 md:gap-4">
-                    <div className="flex flex-col justify-center items-center gap-1">
-                      <div className="text-lg md:text-2xl">
-                        {listing.bedroom}
-                      </div>
-                      <p className="text-sm md:text-lg">Bedrooms </p>
+                  <div className="flex gap-2 md:gap-4 text-xs md:text-sm flex-wrap">
+                    <div className="flex justify-center items-center gap-1 bg-green-700 p-2 px-2 text-white rounded-md">
+                      <FaBed />
+                      <div className="">{listing.bedroom}</div>
+                      <p className="">
+                        Bed<span>{listing.bedroom ? "s" : ""}</span>
+                      </p>
                     </div>
-                    <div className="flex flex-col justify-center items-center gap-1">
-                      <div className="text-lg md:text-2xl">
-                        {listing.bathroom}
-                      </div>
-                      <p className="text-sm md:text-lg">Bathrooms</p>
+                    <div className="flex justify-center items-center gap-1 bg-green-700 p-2 px-2 text-white rounded-md">
+                      <FaBath />
+                      <div className="">{listing.bathroom}</div>
+                      <p className="">
+                        Bath<span>{listing.bathroom > 1 ? "s" : ""}</span>
+                      </p>
+                    </div>
+                    <div
+                      className={`flex justify-center items-center gap-1 p-2 px-2 text-white rounded-md ${
+                        listing.parking ? "bg-green-700" : "bg-red-700"
+                      }`}
+                    >
+                      <FaChair />
+                      <p className="">
+                        {listing.furnished ? "Furnished" : "Unfurnished"}
+                      </p>
+                    </div>
+                    <div
+                      className={`flex justify-center items-center gap-1 p-2 px-2 text-white rounded-md ${
+                        listing.parking ? "bg-green-700" : "bg-red-700"
+                      }`}
+                    >
+                      <BiSolidCarGarage />
+                      <p className="">
+                        {listing.parking ? "Parking spot" : "No parking"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -175,12 +199,26 @@ function ListingInfoPage() {
                   </p>
                 </div>
               </div>
-              <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-3 md:p-5 h-fit md:rounded-lg">
-                <button className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out">
-                  Contact Agent
-                </button>
-              </div>
+              {currentUser && listing.userRef !== currentUser._id && (
+                <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-2 lg:p-4 h-fit md:rounded-lg">
+                  <button
+                    onClick={() => dispatch(openModal("contactLandlordModal"))}
+                    className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out"
+                  >
+                    Contact Landlord
+                  </button>
+                </div>
+              )}
             </div>
+            <Modal
+              title={`Contact landlord of "${listing.name}"`}
+              modalId="contactLandlordModal"
+            >
+              <ContactLandordFrom
+                email={currentUser.email}
+                listing={listing.name}
+              />
+            </Modal>
           </>
         )
       )}

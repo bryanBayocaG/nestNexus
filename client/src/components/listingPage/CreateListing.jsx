@@ -95,9 +95,9 @@ function CreateListing() {
   };
   return (
     <>
-      <h3 className="font-bold text-1xl p-5">Create Listing</h3>
+      <h3 className="font-bold text-1xl p-2 md:p-5">Create Listing</h3>
       <form onSubmit={handleSubmit} className="flex flex-col md:flex-row">
-        <div className="flex-1 p-5">
+        <div className="flex-1">
           <div className="flex flex-col gap-4 md:gap-2">
             <div className="flex flex-col">
               <label className="hidden md:block">Name</label>
@@ -188,68 +188,78 @@ function CreateListing() {
                 <span className="text-sm">Offer</span>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <div className="flex gap-2 items-center">
-                <input
-                  type="number"
-                  id="bedroom"
-                  min="1"
-                  max="10"
-                  required
-                  className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
-                  onChange={handleChange}
-                  value={formData.bedroom}
-                />
-                <span className="text-sm">Beds</span>
-              </div>
-              <div className="flex gap-2 items-center">
-                <input
-                  type="number"
-                  id="bathroom"
-                  min="1"
-                  max="10"
-                  required
-                  className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
-                  onChange={handleChange}
-                  value={formData.bathroom}
-                />
-                <span className="text-sm">Baths</span>
-              </div>
-              <div className="flex gap-2 items-center">
-                <input
-                  type="number"
-                  id="regularPrice"
-                  min="500"
-                  max="9999999"
-                  required
-                  className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
-                  onChange={handleChange}
-                  value={formData.regularPrice}
-                />
-                <div className="flex flex-col">
-                  <p className="text-sm">Regular Price </p>
-                  <span className="text-xs">($/Month)</span>
+            <div className="flex flex-col mt-2 md:mt-5 gap-4">
+              <div className="flex w-fit justify-between relative gap-2 items-center border-2 border-gray-200 rounded-lg p-4">
+                <div className="absolute -top-3 left-2 bg-white px-1 text-sm font-semibold">
+                  <p>Bedrooms & Bathrooms</p>
                 </div>
-              </div>
-
-              {formData.offer && (
                 <div className="flex gap-2 items-center">
                   <input
                     type="number"
-                    id="discountPrice"
-                    min="0"
+                    id="bedroom"
+                    min="1"
+                    max="10"
+                    required
+                    className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
+                    onChange={handleChange}
+                    value={formData.bedroom}
+                  />
+                  <span className="text-sm">Beds</span>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="number"
+                    id="bathroom"
+                    min="1"
+                    max="10"
+                    required
+                    className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
+                    onChange={handleChange}
+                    value={formData.bathroom}
+                  />
+                  <span className="text-sm">Baths</span>
+                </div>
+              </div>
+              <div className="flex w-fit justify-between relative gap-2 items-center border-2 border-gray-200 rounded-lg p-4">
+                <div className="absolute -top-3 left-2 bg-white px-1 text-sm font-semibold">
+                  <p>Pricing</p>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="number"
+                    id="regularPrice"
+                    min="500"
                     max="9999999"
                     required
                     className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
                     onChange={handleChange}
-                    value={formData.discountPrice}
+                    value={formData.regularPrice}
                   />
                   <div className="flex flex-col">
-                    <p className="text-sm">Discounted Price </p>
+                    <p className="text-sm">Regular Price </p>
                     <span className="text-xs">($/Month)</span>
                   </div>
                 </div>
-              )}
+
+                {formData.offer && (
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="number"
+                      id="discountPrice"
+                      min="0"
+                      max="9999999"
+                      required
+                      className="border border-gray-400 p-1 rounded-lg focus:border-secondary outline-none"
+                      onChange={handleChange}
+                      value={formData.discountPrice}
+                    />
+                    <div className="flex flex-col">
+                      <p className="text-sm">Discounted Price </p>
+                      <span className="text-xs">($/Month)</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
