@@ -16,6 +16,7 @@ function CreateListing() {
   const [formData, setFormData] = useState({
     imageUrls: [],
     name: "",
+    contact_email: currentUser.email,
     description: "",
     address: "",
     type: "rent",
@@ -109,6 +110,18 @@ function CreateListing() {
                 required
                 onChange={handleChange}
                 value={formData.name}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="hidden md:block">Email to contact</label>
+              <input
+                id="contact_email"
+                className="border border-gray-400 p-3 rounded-lg focus:border-secondary outline-none"
+                type="text"
+                placeholder="Email to contact"
+                required
+                onChange={handleChange}
+                value={formData.contact_email}
               />
             </div>
             <div className="flex flex-col">

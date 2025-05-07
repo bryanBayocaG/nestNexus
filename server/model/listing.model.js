@@ -6,6 +6,10 @@ const listingSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    contact_email: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,

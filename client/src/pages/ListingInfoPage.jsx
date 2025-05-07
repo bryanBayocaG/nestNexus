@@ -217,6 +217,7 @@ function ListingInfoPage() {
               <ContactLandordFrom
                 email={currentUser.email}
                 listing={listing.name}
+                poster_email={listing.contact_email}
               />
             </Modal>
           </>
