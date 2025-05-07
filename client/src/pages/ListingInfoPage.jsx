@@ -104,7 +104,7 @@ function ListingInfoPage() {
                     setCopied(false);
                   }, 1500);
                 }}
-                className="absolute bg-white/30 backdrop-blur-sm border-2 border-secondary p-2 rounded-md top-12 right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
+                className="absolute bg-white/30 backdrop-blur-sm border-2 border-secondary p-2 rounded-md top-6 md:top-12 right-6 md:right-12 text-secondary z-10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
               >
                 <FaShare />
               </div>
@@ -203,7 +203,7 @@ function ListingInfoPage() {
                 <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-2 lg:p-4 h-fit md:rounded-lg">
                   <button
                     onClick={() => dispatch(openModal("contactLandlordModal"))}
-                    className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out"
+                    className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:opacity-80 transition duration-300 ease-in-out"
                   >
                     Contact Landlord
                   </button>

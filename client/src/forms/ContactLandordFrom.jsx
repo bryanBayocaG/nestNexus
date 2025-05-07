@@ -26,7 +26,7 @@ function ContactLandordFrom({ email, listing }) {
 
       <button
         type="submit"
-        className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:scale-105 transition duration-300 ease-in-out"
+        className="bg-secondary mt-3 text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:opacity-80 transition duration-300 ease-in-out"
       >
         Send Message
       </button>
