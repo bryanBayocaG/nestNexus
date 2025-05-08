@@ -4,8 +4,8 @@ import ShowListing from "./ShowListing";
 
 function CombineCreateandListingPages() {
   const tabs = [
-    { id: "createListing", name: "Create Listing" },
     { id: "showListing", name: "Show Listing" },
+    { id: "createListing", name: "Create Listing" },
   ];
 
   // Notice we're storing the *component functions*, not JSX

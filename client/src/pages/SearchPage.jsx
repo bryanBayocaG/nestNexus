@@ -1,13 +1,14 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { RxCrossCircled } from "react-icons/rx";
 function SearchPage() {
   return (
     <main className="flex flex-col gap-4">
       <div className="bg-gray-200 p-4">
         <form className="flex flex-col items-center justify-center">
           {/* search bar */}
-          <div className="flex items-center bg-white justify-center p-1 md:w-[75vw] gap-2 shadow-lg rounded-md">
+          <div className="flex items-center bg-white justify-center p-1 w-[95vw] md:w-[75vw] gap-2 shadow-lg rounded-md">
             <div className="flex w-full  justify-center items-center gap-2 grow-7">
               <div className="flex w-full  items-center px-2">
                 <FaSearch />
@@ -35,16 +36,16 @@ function SearchPage() {
             </div>
           </div>
           {/* sorting option */}
-          <div className="flex items-center justify-center p-1 md:w-[75vw] gap-4">
-            <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-center p-1 w-[95vw] md:w-[75vw] gap-1 md:gap-4 text-xs ">
+            <div className="flex flex-col gap-2 basis-1/4">
               <label>Type</label>
-              <select name="" id="">
+              <select name="" id="" className="w-full">
                 <option value="">Rent & Sale</option>
                 <option value="">Rent</option>
                 <option value="">Sale</option>
               </select>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 basis-1/4">
               <label>Sort by:</label>
               <select name="" id="">
                 <option value="">Latest</option>
@@ -52,7 +53,7 @@ function SearchPage() {
                 <option value="">Ascending</option>
               </select>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 basis-1/4">
               <label>Amenities:</label>
               <div className="flex gap-2">
                 <div className="flex">
@@ -65,14 +66,59 @@ function SearchPage() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="opacity-0">Clear button</label>
-              <button>Clear all</button>
+            <div className="flex basis-1/4 gap-2">
+              {/* Offer: 60% of 1/4 */}
+              <div className="flex flex-col gap-2 basis-[80%] md:basis-[60%] justify-center items-center">
+                <label className="opacity-0">Is offered:</label>
+                <div className="flex">
+                  <input type="checkbox" />
+                  <p>With Offer</p>
+                </div>
+              </div>
+
+              {/* Clear all: 40% of 1/4 */}
+              <div className="flex flex-col basis-[20%] md:basis-[40%] items-center justify-center">
+                <button type="button" className="hidden md:block">
+                  Clear all
+                </button>
+                <button type="button" className=" md:hidden">
+                  <RxCrossCircled />
+                </button>
+              </div>
             </div>
           </div>
         </form>
       </div>
-      <div className="p-4">cards</div>
+      <div className="p-4">
+        <p className="">28 listing result</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
+          {/* card */}
+
+          {[...Array(10)].map((_, i) => (
+            <div
+              key={i}
+              className="shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px]"
+            >
+              <div className="flex-[3] h-[160px] overflow-hidden">
+                <img src="test.webp" className="object-contain" alt="" />
+              </div>
+              <div className="flex-[2] p-2 h-[140px]">
+                <p className="font-bold text-secondary text-lg">$ 155000</p>
+                <p>{i}</p>
+                <div className="flex gap-1">
+                  <p>2 beds</p>|<p>2 baths</p>
+                </div>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  Eveniet quae hic quaerat nihil, blanditiis delectus rem ullam
+                  quas est modi iste laudantium animi sed nulla dicta quasi
+                  optio veritatis mollitia.
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </main>
   );
 }
