@@ -37,7 +37,7 @@ function SearchPage() {
           </div>
           {/* sorting option */}
           <div className="flex items-center justify-center p-1 w-[95vw] md:w-[75vw] gap-1 md:gap-4 text-xs ">
-            <div className="flex flex-col gap-2 basis-1/4">
+            <div className="flex flex-col gap-2 basis-1/4 ">
               <label>Type</label>
               <select name="" id="" className="w-full">
                 <option value="">Rent & Sale</option>
@@ -45,7 +45,7 @@ function SearchPage() {
                 <option value="">Sale</option>
               </select>
             </div>
-            <div className="flex flex-col gap-2 basis-1/4">
+            <div className="flex flex-col gap-2 basis-1/4 ">
               <label>Sort by:</label>
               <select name="" id="">
                 <option value="">Latest</option>
@@ -53,14 +53,14 @@ function SearchPage() {
                 <option value="">Ascending</option>
               </select>
             </div>
-            <div className="flex flex-col gap-2 basis-1/4">
+            <div className="flex flex-col gap-2 basis-1/4 ">
               <label>Amenities:</label>
-              <div className="flex gap-1 md:gap-2">
-                <div className="flex">
+              <div className="flex gap-1  md:gap-2">
+                <div className="flex flex-1 ">
                   <input type="checkbox" />
                   <p>Parking</p>
                 </div>
-                <div className="flex">
+                <div className="flex flex-1 ">
                   <input type="checkbox" />
                   <p>Furnished</p>
                 </div>
@@ -68,7 +68,7 @@ function SearchPage() {
             </div>
             <div className="flex basis-1/4 md:gap-2 ">
               {/* Offer: 60% of 1/4 */}
-              <div className="flex flex-col basis-[60%] justify-center items-center ">
+              <div className="flex gap-2 flex-col basis-[60%] justify-center items-center ">
                 <label className="opacity-0">Is offered:</label>
                 <div className="flex">
                   <input type="checkbox" />
