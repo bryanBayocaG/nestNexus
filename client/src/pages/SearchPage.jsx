@@ -55,7 +55,7 @@ function SearchPage() {
             </div>
             <div className="flex flex-col gap-2 basis-1/4">
               <label>Amenities:</label>
-              <div className="flex gap-2">
+              <div className="flex gap-1 md:gap-2">
                 <div className="flex">
                   <input type="checkbox" />
                   <p>Parking</p>
@@ -66,23 +66,20 @@ function SearchPage() {
                 </div>
               </div>
             </div>
-            <div className="flex basis-1/4 gap-2">
+            <div className="flex basis-1/4 md:gap-2 ">
               {/* Offer: 60% of 1/4 */}
-              <div className="flex flex-col gap-2 basis-[80%] md:basis-[60%] justify-center items-center">
+              <div className="flex flex-col basis-[60%] justify-center items-center ">
                 <label className="opacity-0">Is offered:</label>
                 <div className="flex">
                   <input type="checkbox" />
-                  <p>With Offer</p>
+                  <p>Offer</p>
                 </div>
               </div>
 
               {/* Clear all: 40% of 1/4 */}
-              <div className="flex flex-col basis-[20%] md:basis-[40%] items-center justify-center">
-                <button type="button" className="hidden md:block">
+              <div className="flex flex-col basis-[40%] items-center justify-center ">
+                <button type="button" className="">
                   Clear all
-                </button>
-                <button type="button" className=" md:hidden">
-                  <RxCrossCircled />
                 </button>
               </div>
             </div>
@@ -97,7 +94,7 @@ function SearchPage() {
           {[...Array(10)].map((_, i) => (
             <div
               key={i}
-              className="shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px]"
+              className="shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px] cursor-pointer"
             >
               <div className="flex-[3] h-[160px] overflow-hidden">
                 <img src="test.webp" className="object-contain" alt="" />
