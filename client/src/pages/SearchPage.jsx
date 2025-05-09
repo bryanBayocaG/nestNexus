@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { RxCrossCircled } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 function SearchPage() {
+  const navigate = useNavigate();
   const [searchData, setSearchData] = useState({
     searchTerm: "",
     address: "",
@@ -13,8 +14,10 @@ function SearchPage() {
     sort: "created_at",
     order: "desc",
   });
-  console.log("oh hellow there", searchData);
   const handleChange = (e) => {
+    if (e.target.id === "searchTerm" || e.target.id === "address") {
+      setSearchData({ ...searchData, [e.target.id]: e.target.value });
+    }
     if (e.target.id === "type") {
       console.log("type is change to", e.target.value);
       setSearchData({
@@ -46,11 +49,34 @@ function SearchPage() {
         order: "desc",
       });
     }
+
+    if (e.target.id === "sort_order") {
+      const sort = e.target.value.split("_")[0] || "created_at";
+      const order = e.target.value.split("_")[1] || "desc";
+      setSearchData({ ...searchData, sort, order });
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams();
+    urlParams.set("searchTerm", searchData.searchTerm);
+    urlParams.set("address", searchData.address);
+    urlParams.set("type", searchData.type);
+    urlParams.set("sort", searchData.sort);
+    urlParams.set("order", searchData.order);
+    urlParams.set("parking", searchData.parking);
+    urlParams.set("furnished", searchData.furnished);
+    urlParams.set("offer", searchData.offer);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
   };
   return (
     <main className="flex flex-col gap-4">
       <div className="bg-gray-200 p-4">
-        <form className="flex flex-col items-center justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center justify-center"
+        >
           {/* search bar */}
           <div className="flex items-center bg-white justify-center p-1 w-[95vw] md:w-[75vw] gap-2 shadow-lg rounded-md">
             <div className="flex w-full  justify-center items-center gap-2 grow-7">
@@ -62,6 +88,7 @@ function SearchPage() {
                   className="bg-transparent p-2 focus:outline-none w-full"
                   value={searchData.searchTerm}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
               </div>
               |
@@ -73,6 +100,7 @@ function SearchPage() {
                   className="bg-transparent p-2 focus:outline-none w-full"
                   value={searchData.address}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
               </div>
             </div>
