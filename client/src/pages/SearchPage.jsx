@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { backEndBaseURL } from "../utils/backendBaseURL";
 function SearchPage() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState([]);
+  console.log("nakuha", listings);
   const [searchData, setSearchData] = useState({
     searchTerm: "",
     address: "",
@@ -62,14 +66,69 @@ function SearchPage() {
     urlParams.set("searchTerm", searchData.searchTerm);
     urlParams.set("address", searchData.address);
     urlParams.set("type", searchData.type);
-    urlParams.set("sort", searchData.sort);
-    urlParams.set("order", searchData.order);
     urlParams.set("parking", searchData.parking);
     urlParams.set("furnished", searchData.furnished);
     urlParams.set("offer", searchData.offer);
+    urlParams.set("sort", searchData.sort);
+    urlParams.set("order", searchData.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    const addressFromUrl = urlParams.get("address");
+    const typeFromUrl = urlParams.get("type");
+    const parkingFromUrl = urlParams.get("parking");
+    const furnishedFromUrl = urlParams.get("furnished");
+    const offerFromUrl = urlParams.get("offer");
+    const sortFromUrl = urlParams.get("sort");
+    const orderFromUrl = urlParams.get("order");
+
+    if (
+      searchTermFromUrl ||
+      addressFromUrl ||
+      typeFromUrl ||
+      parkingFromUrl ||
+      furnishedFromUrl ||
+      offerFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
+      setSearchData({
+        searchTerm: searchTermFromUrl || "",
+        address: addressFromUrl || "",
+        type: typeFromUrl || "all",
+        parking: parkingFromUrl === "true" ? true : false,
+        furnished: furnishedFromUrl === "true" ? true : false,
+        offer: offerFromUrl === "true" ? true : false,
+        sort: sortFromUrl || "created_at",
+        order: orderFromUrl || "desc",
+      });
+    }
+
+    const fetchListing = async () => {
+      setLoading(true);
+      const searchQuery = urlParams.toString();
+      const res = await fetch(
+        `${backEndBaseURL}/api/listing/get?${searchQuery}`,
+        {
+          method: "GET",
+        }
+      );
+      const data = await res.json();
+      console.log("that fucking data", data);
+      if (data.success === false) {
+        console.log(data.message);
+        setLoading(false);
+        return;
+      }
+      setListings(data);
+      setLoading(false);
+    };
+    fetchListing();
+  }, [location.search]);
   return (
     <main className="flex flex-col gap-4">
       <div className="bg-gray-200 p-4">

@@ -82,7 +82,7 @@ export const getListings = async (req, res, next) => {
     }
 
     let parking = req.query.parking;
-    console.log(req.query.parking);
+    console.log("parking", req.query.parking);
     if (parking === undefined || parking === false) {
       parking = { $in: [false, true] };
     }
