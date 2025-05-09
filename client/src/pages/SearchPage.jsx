@@ -13,7 +13,40 @@ function SearchPage() {
     sort: "created_at",
     order: "desc",
   });
-  const handleChange = (e) => {};
+  console.log("oh hellow there", searchData);
+  const handleChange = (e) => {
+    if (e.target.id === "type") {
+      console.log("type is change to", e.target.value);
+      setSearchData({
+        ...searchData,
+        [e.target.id]: e.target.value,
+      });
+    }
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
+      setSearchData({
+        ...searchData,
+        [e.target.id]:
+          e.target.checked || e.target.checked === "true" ? true : false,
+      });
+    }
+
+    if (e.target.id === "clear_all") {
+      setSearchData({
+        searchTerm: "",
+        address: "",
+        type: "all",
+        parking: false,
+        furnished: false,
+        offer: false,
+        sort: "created_at",
+        order: "desc",
+      });
+    }
+  };
   return (
     <main className="flex flex-col gap-4">
       <div className="bg-gray-200 p-4">
@@ -61,7 +94,7 @@ function SearchPage() {
               <label>Type</label>
               <select
                 onChange={handleChange}
-                defaultValue={"rent_sale"}
+                value={searchData.type}
                 id="type"
                 className="w-full"
               >
@@ -114,13 +147,19 @@ function SearchPage() {
                     type="checkbox"
                     id="offer"
                     checked={searchData.offer}
+                    onChange={handleChange}
                   />
                   <p>Offer</p>
                 </div>
               </div>
 
               <div className="flex flex-col basis-[40%] items-center justify-center ">
-                <button type="button" className="whitespace-nowrap">
+                <button
+                  id="clear_all"
+                  type="button"
+                  onClick={handleChange}
+                  className="whitespace-nowrap"
+                >
                   Clear all
                 </button>
               </div>
