@@ -258,25 +258,48 @@ function SearchPage() {
               {listings.map((listing, i) => (
                 <div
                   key={i}
-                  className="shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px] cursor-pointer"
+                  className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px] cursor-pointer group  transition-all duration-300 ease-in-out"
                 >
                   <div className="flex-[3] h-[160px] overflow-hidden">
                     <img
                       src={imageSrc(listing.imageUrls[0])}
-                      className="object-contain"
+                      className="object-contain group-hover:scale-105 transition-all duration-300 ease-in-out"
                       alt={listing.name}
                     />
                   </div>
-                  <div className="flex-[2] p-2 h-[140px]">
-                    <p className="font-bold text-secondary text-lg">
+                  <div className="flex-[2] p-4 h-[140px]">
+                    <p className="font-bold text-secondary text-xl">
                       $ {listing.regularPrice.toLocaleString("en-US")}
                     </p>
-                    <p>{listing.name}</p>
-                    <div className="flex gap-1">
-                      <p>{listing.bedroom} beds</p>|
-                      <p>{listing.bathroom} baths</p>
+                    <p className="text-lg">{listing.name}</p>
+                    <div className="flex text-sm gap-1 items-center">
+                      <p className="px-2 py-1 bg-green-700 text-white rounded-sm">
+                        {listing.bedroom} beds
+                      </p>
+                      |
+                      <p className="px-2 py-1 bg-green-700 text-white rounded-sm">
+                        {listing.bathroom} baths
+                      </p>
+                      |
+                      <p
+                        className={`${
+                          listing.furnished ? "bg-green-700" : "bg-red-700"
+                        } px-2 py-1 text-white rounded-sm`}
+                      >
+                        Furnished
+                      </p>
+                      |
+                      <p
+                        className={`${
+                          listing.parking ? "bg-green-700" : "bg-red-700"
+                        } px-2 py-1 text-white rounded-sm`}
+                      >
+                        Parking
+                      </p>
                     </div>
-                    <p>{listing.description}</p>
+                    <p className="truncate text-xs my-2">
+                      {listing.description}
+                    </p>
                   </div>
                 </div>
               ))}
