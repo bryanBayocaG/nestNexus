@@ -21,6 +21,7 @@ function HeaderSearch() {
   }, []);
   return (
     <form
+      autoComplete="off"
       onSubmit={handleSubmit}
       className="bg-slate-100 rounded-lg p-3 flex items-center gap-2"
     >
@@ -29,6 +30,7 @@ function HeaderSearch() {
         placeholder="Search..."
         className="bg-transparent focus:outline-none w-40 md:w-50 lg:w-60"
         value={searchTerm}
+        autoComplete="off"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 

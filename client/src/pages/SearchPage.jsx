@@ -3,11 +3,11 @@ import { FaSearch } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { backEndBaseURL } from "../utils/backendBaseURL";
+import { imageSrc } from "../utils/imageAppwriteUrl";
 function SearchPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  console.log("nakuha", listings);
   const [searchData, setSearchData] = useState({
     searchTerm: "",
     address: "",
@@ -112,21 +112,13 @@ function SearchPage() {
       setLoading(true);
       const searchQuery = urlParams.toString();
       const res = await fetch(
-        `${backEndBaseURL}/api/listing/get?${searchQuery}`,
-        {
-          method: "GET",
-        }
+        `${backEndBaseURL}/api/listing/get?${searchQuery}`
       );
       const data = await res.json();
-      console.log("that fucking data", data);
-      if (data.success === false) {
-        console.log(data.message);
-        setLoading(false);
-        return;
-      }
       setListings(data);
       setLoading(false);
     };
+
     fetchListing();
   }, [location.search]);
   return (
@@ -255,33 +247,41 @@ function SearchPage() {
         </form>
       </div>
       <div className="p-4">
-        <p className="">28 listing result</p>
+        <p className="">{listings.length} listing result</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
           {/* card */}
 
-          {[...Array(10)].map((_, i) => (
-            <div
-              key={i}
-              className="shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px] cursor-pointer"
-            >
-              <div className="flex-[3] h-[160px] overflow-hidden">
-                <img src="test.webp" className="object-contain" alt="" />
-              </div>
-              <div className="flex-[2] p-2 h-[140px]">
-                <p className="font-bold text-secondary text-lg">$ 155000</p>
-                <p>{i}</p>
-                <div className="flex gap-1">
-                  <p>2 beds</p>|<p>2 baths</p>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              {listings.map((listing, i) => (
+                <div
+                  key={i}
+                  className="shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px] cursor-pointer"
+                >
+                  <div className="flex-[3] h-[160px] overflow-hidden">
+                    <img
+                      src={imageSrc(listing.imageUrls[0])}
+                      className="object-contain"
+                      alt={listing.name}
+                    />
+                  </div>
+                  <div className="flex-[2] p-2 h-[140px]">
+                    <p className="font-bold text-secondary text-lg">
+                      $ {listing.regularPrice.toLocaleString("en-US")}
+                    </p>
+                    <p>{listing.name}</p>
+                    <div className="flex gap-1">
+                      <p>{listing.bedroom} beds</p>|
+                      <p>{listing.bathroom} baths</p>
+                    </div>
+                    <p>{listing.description}</p>
+                  </div>
                 </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Eveniet quae hic quaerat nihil, blanditiis delectus rem ullam
-                  quas est modi iste laudantium animi sed nulla dicta quasi
-                  optio veritatis mollitia.
-                </p>
-              </div>
-            </div>
-          ))}
+              ))}
+            </>
+          )}
         </div>
       </div>
     </main>
