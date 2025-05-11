@@ -182,26 +182,30 @@ function ListingInfoPage() {
                 </div>
               </div>
               {currentUser && listing.userRef !== currentUser._id && (
-                <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-2 lg:p-4 h-fit md:rounded-lg">
-                  <button
-                    onClick={() => dispatch(openModal("contactLandlordModal"))}
-                    className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:opacity-80 transition duration-300 ease-in-out"
+                <>
+                  <div className="border-2 bg-white w-full md:w-fit sticky bottom-0 md:top-20 border-gray-200 p-2 lg:p-4 h-fit md:rounded-lg">
+                    <button
+                      onClick={() =>
+                        dispatch(openModal("contactLandlordModal"))
+                      }
+                      className="bg-secondary text-white w-full md:px-10 lg:px-20 py-2 rounded-md hover:opacity-80 transition duration-300 ease-in-out"
+                    >
+                      Contact Landlord
+                    </button>
+                  </div>
+                  <Modal
+                    title={`Contact landlord of "${listing.name}"`}
+                    modalId="contactLandlordModal"
                   >
-                    Contact Landlord
-                  </button>
-                </div>
+                    <ContactLandordFrom
+                      email={currentUser.email}
+                      listing={listing.name}
+                      poster_email={listing.contact_email}
+                    />
+                  </Modal>
+                </>
               )}
             </div>
-            <Modal
-              title={`Contact landlord of "${listing.name}"`}
-              modalId="contactLandlordModal"
-            >
-              <ContactLandordFrom
-                email={currentUser.email}
-                listing={listing.name}
-                poster_email={listing.contact_email}
-              />
-            </Modal>
           </>
         )
       )}
