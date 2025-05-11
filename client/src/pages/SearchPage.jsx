@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 import { imageSrc } from "../utils/imageAppwriteUrl";
+import { FaBath, FaBed } from "react-icons/fa";
 function SearchPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -248,7 +249,7 @@ function SearchPage() {
       </div>
       <div className="p-4">
         <p className="">{listings.length} listing result</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 p-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2">
           {/* card */}
 
           {loading ? (
@@ -256,52 +257,62 @@ function SearchPage() {
           ) : (
             <>
               {listings.map((listing, i) => (
-                <div
+                <Link
+                  to={`/listing-info/${listing._id}`}
                   key={i}
-                  className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[300px] cursor-pointer group  transition-all duration-300 ease-in-out"
+                  className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[320px] cursor-pointer group  transition-all duration-300 ease-in-out grow"
                 >
-                  <div className="flex-[3] h-[160px] overflow-hidden">
+                  <div className="h-[170px] overflow-hidden">
                     <img
                       src={imageSrc(listing.imageUrls[0])}
-                      className="object-contain group-hover:scale-105 transition-all duration-300 ease-in-out"
+                      className="truncate object-contain group-hover:scale-105 transition-all duration-300 ease-in-out"
                       alt={listing.name}
                     />
                   </div>
-                  <div className="flex-[2] p-4 h-[140px]">
-                    <p className="font-bold text-secondary text-xl">
-                      $ {listing.regularPrice.toLocaleString("en-US")}
-                    </p>
-                    <p className="text-lg">{listing.name}</p>
-                    <div className="flex text-sm gap-1 items-center">
-                      <p className="px-2 py-1 bg-green-700 text-white rounded-sm">
-                        {listing.bedroom} beds
+                  <div className="p-4 h-[150px] gap-2">
+                    <div className="flex justify-between">
+                      <p className="font-bold text-secondary text-xl whitespace-nowrap">
+                        $ {listing.regularPrice.toLocaleString("en-US")}
                       </p>
-                      |
-                      <p className="px-2 py-1 bg-green-700 text-white rounded-sm">
-                        {listing.bathroom} baths
-                      </p>
-                      |
-                      <p
-                        className={`${
-                          listing.furnished ? "bg-green-700" : "bg-red-700"
-                        } px-2 py-1 text-white rounded-sm`}
-                      >
-                        Furnished
-                      </p>
-                      |
-                      <p
-                        className={`${
-                          listing.parking ? "bg-green-700" : "bg-red-700"
-                        } px-2 py-1 text-white rounded-sm`}
-                      >
-                        Parking
-                      </p>
+                      <div className="flex text-sm gap-1 items-center">
+                        <div className="flex gap-1 text-white items-center px-2 py-1 bg-green-700 rounded-sm">
+                          <p className="  ">{listing.bedroom}</p>
+                          <FaBed />
+                        </div>
+
+                        <div className="flex gap-1 text-white items-center px-2 py-1 bg-green-700 rounded-sm">
+                          <p className="">{listing.bathroom}</p>
+                          <FaBath />
+                        </div>
+
+                        <p
+                          className={`${
+                            listing.furnished ? "bg-green-700" : "bg-red-700"
+                          } whitespace-nowrap px-2 py-1 text-white rounded-sm`}
+                        >
+                          {listing.furnished ? "Furnished" : "Unfurnished"}
+                        </p>
+
+                        <p
+                          className={`${
+                            listing.parking ? "bg-green-700" : "bg-red-700"
+                          } whitespace-nowrap px-2 py-1 text-white rounded-sm`}
+                        >
+                          {listing.parking ? "Parking" : "No Parking"}
+                        </p>
+                      </div>
                     </div>
-                    <p className="truncate text-xs my-2">
+                    <p className="text-lg">{listing.name}</p>
+                    <div className="flex justify-start gap-2 items-center my-1">
+                      <FaLocationDot className="text-red-700" />
+                      <p className="truncate text-sm">{listing.address}</p>
+                    </div>
+
+                    <p className="line-clamp-2 text-xs my-2">
                       {listing.description}
                     </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </>
           )}

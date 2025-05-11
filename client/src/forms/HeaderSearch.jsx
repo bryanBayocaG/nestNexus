@@ -30,6 +30,7 @@ function HeaderSearch() {
         placeholder="Search..."
         className="bg-transparent focus:outline-none w-40 md:w-50 lg:w-60"
         value={searchTerm}
+        name={`search_${Math.random().toString(36).substring(7)}`}
         autoComplete="off"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
