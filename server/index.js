@@ -22,7 +22,7 @@ console.log("Allowed origin:", process.env.ALLOWED_URL);
 // );
 app.use(
   cors({
-    origin: true,
+    origin: [`${process.env.ALLOWED_URL}`],
     credentials: true,
   })
 );
