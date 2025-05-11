@@ -3,6 +3,7 @@ import { backEndBaseURL } from "../utils/backendBaseURL";
 import { useNavigate } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
+import ButtonLoader from "../components/ButtonLoader";
 function SearchPageSearchForm({
   setListings,
   loading,
@@ -152,7 +153,9 @@ function SearchPageSearchForm({
             className="bg-secondary lg:w-36 px-4 py-4 lg:py-2 text-white rounded-md hover:opacity-90"
           >
             {loading ? (
-              <p>Loading..</p>
+              <>
+                <ButtonLoader size={6} loading={loading} />
+              </>
             ) : (
               <>
                 <div className="lg:hidden">

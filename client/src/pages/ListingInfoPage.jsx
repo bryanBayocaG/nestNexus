@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { backEndBaseURL } from "../utils/backendBaseURL";
 import { useParams } from "react-router-dom";
-import { HashLoader, PulseLoader } from "react-spinners";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "../components/Modal";
 import { openModal } from "../redux/modalState/modalSlice";
 import ContactLandordFrom from "../forms/ContactLandordFrom";
+import PageLoader from "../components/PageLoader";
 function ListingInfoPage() {
   const dispatch = useDispatch();
   const [copied, setCopied] = useState(false);
@@ -54,25 +54,7 @@ function ListingInfoPage() {
   return (
     <main className="flex flex-grow flex-col">
       {isLoading ? (
-        <div className="flex flex-col justify-center  items-center my-auto p-5">
-          <HashLoader
-            color="#D4AF37"
-            loading={isLoading}
-            size={60}
-            aria-label="pulse loader"
-            data-testid="loader"
-          />
-          <div className="flex items-center justify-center gap-1 mt-2">
-            <p className="text-center">Loading</p>
-            <PulseLoader
-              color="#D4AF37"
-              loading={isLoading}
-              size={10}
-              aria-label="pulse loader"
-              data-testid="loader"
-            />
-          </div>
-        </div>
+        <PageLoader loading={isLoading} />
       ) : (
         listing && (
           <>
