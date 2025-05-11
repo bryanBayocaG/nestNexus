@@ -13,10 +13,16 @@ connectDB();
 
 app.use(express.json());
 console.log("Allowed origin:", process.env.ALLOWED_URL);
+// app.use(
+//   cors({
+//     origin: [`${process.env.ALLOWED_URL}`],
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    origin: [`${process.env.ALLOWED_URL}`],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    origin: true,
     credentials: true,
   })
 );
