@@ -6,15 +6,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../redux/modalState/modalSlice";
 import ProfileDropDown from "./ProfileDropDown";
 import { imageSrc } from "../utils/imageAppwriteUrl";
+import { useMotionValueEvent, useScroll } from "motion/react";
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { openModalId } = useSelector((state) => state.modal);
   const myImage = imageSrc(currentUser?.avatar);
 
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    console.log("Page scroll: ", Math.ceil(latest));
+  });
+
   return (
     <>
-      <header className="bg-white shadow-md z-50">
+      <header className="bg-white shadow-md z-50 boder-2 border-b-gray-400">
         <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
           <Link to="/">
             <h1 className="font-bold  text-sm sm:text-xl lg:text-2xl flex items-center flex-wrap">

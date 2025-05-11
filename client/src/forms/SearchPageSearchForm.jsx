@@ -10,6 +10,7 @@ function SearchPageSearchForm({
   setLoading,
   searchData,
   setSearchData,
+  useFor,
 }) {
   const navigate = useNavigate();
 
@@ -57,6 +58,7 @@ function SearchPageSearchForm({
   };
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
+
     const searchTermFromUrl = urlParams.get("searchTerm");
     const addressFromUrl = urlParams.get("address");
     const typeFromUrl = urlParams.get("type");
@@ -98,7 +100,9 @@ function SearchPageSearchForm({
       setListings(data);
       setLoading(false);
     };
-
+    if (useFor === "home") {
+      return;
+    }
     fetchListing();
   }, [location.search]);
   const handleSubmit = (e) => {
@@ -168,33 +172,41 @@ function SearchPageSearchForm({
         </div>
       </div>
       {/* sorting option */}
-      <div className="flex items-center justify-center p-1 w-[95vw] md:w-[75vw] gap-1 md:gap-4 text-xs ">
+      <div
+        className={`${
+          useFor === "home" ? "text-white" : ""
+        } flex items-center justify-center p-1 w-[95vw] md:w-[75vw] gap-1 md:gap-4 text-xs`}
+      >
         <div className="flex flex-col gap-2 basis-1/4 ">
           <label>Type</label>
           <select
             onChange={handleChange}
             value={searchData.type}
             id="type"
-            className="w-full"
+            className="w-full text-gray-600"
           >
             <option value="all">Rent & Sale</option>
             <option value="rent">Rent</option>
             <option value="sale">Sale</option>
           </select>
         </div>
-        <div className="flex flex-col gap-2 basis-1/4 ">
-          <label>Sort by:</label>
-          <select
-            onChange={handleChange}
-            defaultValue={"created_at_desc"}
-            id="sort_order"
-          >
-            <option value="createdAt_desc">Latest</option>
-            <option value="createdAt_asc">Oldest</option>
-            <option value="regularPrice_desc">Price high to low</option>
-            <option value="regularPrice_asc">Price low to high</option>
-          </select>
-        </div>
+        {useFor != "home" && (
+          <div className="flex flex-col gap-2 basis-1/4 ">
+            <label>Sort by:</label>
+            <select
+              onChange={handleChange}
+              defaultValue={"created_at_desc"}
+              id="sort_order"
+              className="w-full text-gray-600"
+            >
+              <option value="createdAt_desc">Latest</option>
+              <option value="createdAt_asc">Oldest</option>
+              <option value="regularPrice_desc">Price high to low</option>
+              <option value="regularPrice_asc">Price low to high</option>
+            </select>
+          </div>
+        )}
+
         <div className="flex flex-col gap-2 basis-1/4 ">
           <label>Amenities:</label>
           <div className="flex gap-1  md:gap-2">
