@@ -89,7 +89,7 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="flex flex-col gap-4 justify-center">
+      <div className="flex flex-col gap-4 justify-center items-center">
         <HomeSection thatListing={offerListing} useFor={"offer"} />
         <HomeSection thatListing={rentListing} useFor={"rent"} />
         <HomeSection thatListing={saleListing} useFor={"sale"} />
