@@ -7,7 +7,7 @@ function ListingCard({ listing }) {
   return (
     <Link
       to={`/listing-info/${listing._id}`}
-      className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[320px] w-full cursor-pointer group  transition-all duration-300 ease-in-out grow"
+      className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[320px] cursor-pointer group  transition-all duration-300 ease-in-out grow"
     >
       <div className="h-[170px] overflow-hidden">
         <img

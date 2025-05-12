@@ -6,8 +6,19 @@ import { Pagination, Navigation } from "swiper/modules";
 
 import ListingCard from "./ListingCard";
 import { Link } from "react-router-dom";
+import { useTailwindBreakpoint } from "../hooks/monitorScreenSizel";
+import { useEffect, useState } from "react";
 
 function HomeSection({ thatListing, useFor }) {
+  const breakpoint = useTailwindBreakpoint();
+  const [listToView, setListToView] = useState(1);
+  useEffect(() => {
+    if (["md", "lg", "xl", "2xl"].includes(breakpoint)) {
+      setListToView(2);
+    } else {
+      setListToView(1);
+    }
+  }, [breakpoint]);
   let title = "";
   let toFind = "";
   if (useFor === "offer") {
@@ -20,43 +31,36 @@ function HomeSection({ thatListing, useFor }) {
     title = "Recent Rent Posting";
     toFind = "type=rent";
   }
+
   return (
-    <section
-      id="recent_offer"
-      className="flex flex-col gap-4 p-5 max-w-[1140px]"
-    >
+    <section id="recent_offer" className="flex flex-col gap-4 p-5">
       <h2 className="font-extrabold text-1xl md:text-2xl lg:text-3xl flex flex-col md:flex-row md:gap-2">
         {title}
       </h2>
 
-      <div>
-        <Swiper
-          navigation={true}
-          breakpoints={{
-            768: { slidesPerView: 2 },
-            0: { slidesPerView: 1 },
-          }}
-          spaceBetween={30}
-          modules={[Pagination, Navigation]}
-          className="mySwiper"
-        >
-          {thatListing.map((listing, i) => (
-            <SwiperSlide className="p-1" key={i}>
-              <ListingCard listing={listing} />
-            </SwiperSlide>
-          ))}
-          <SwiperSlide>
-            <div className=" w-full h-[320px] flex flex-col justify-center items-start">
-              <Link
-                to={`search?${toFind}`}
-                className="border-2 border-secondary text-secondary px-4 py-2 rounded-full shadow-md hover:bg-secondary hover:text-white hover:shadow-lg transition-colors duration-300 ease-in-out"
-              >
-                See more &rarr;
-              </Link>
-            </div>
+      <Swiper
+        navigation={false}
+        slidesPerView={listToView}
+        spaceBetween={30}
+        modules={[Pagination, Navigation]}
+        className="mySwiper w-[95vw] md:max-w-[75vw]"
+      >
+        {thatListing.map((listing, i) => (
+          <SwiperSlide className="p-1 " key={i}>
+            <ListingCard listing={listing} />
           </SwiperSlide>
-        </Swiper>
-      </div>
+        ))}
+        <SwiperSlide>
+          <div className=" h-[320px] flex flex-col justify-center items-start p-5 md:p-0">
+            <Link
+              to={`search?${toFind}`}
+              className="border-2 border-secondary text-secondary px-4 py-2 rounded-full shadow-md hover:bg-secondary hover:text-white hover:shadow-lg transition-colors duration-300 ease-in-out"
+            >
+              See more &rarr;
+            </Link>
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </section>
   );
 }

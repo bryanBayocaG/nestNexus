@@ -6,18 +6,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../redux/modalState/modalSlice";
 import ProfileDropDown from "./ProfileDropDown";
 import { imageSrc } from "../utils/imageAppwriteUrl";
-import { useMotionValueEvent, useScroll } from "motion/react";
+// import { useMotionValueEvent, useScroll } from "motion/react";
 const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { openModalId } = useSelector((state) => state.modal);
   const myImage = imageSrc(currentUser?.avatar);
 
-  const { scrollY } = useScroll();
+  // const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    console.log("Page scroll: ", Math.ceil(latest));
-  });
+  // useMotionValueEvent(scrollY, "change", (latest) => {
+  //   console.log("Page scroll: ", Math.ceil(latest));
+  // });
 
   return (
     <>
