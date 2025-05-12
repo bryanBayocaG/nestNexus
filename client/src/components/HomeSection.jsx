@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 import ListingCard from "./ListingCard";
 import { Link } from "react-router-dom";
@@ -39,11 +39,14 @@ function HomeSection({ thatListing, useFor }) {
       </h2>
 
       <Swiper
-        navigation={false}
         slidesPerView={listToView}
         spaceBetween={30}
-        modules={[Pagination, Navigation]}
-        className="mySwiper w-[95vw] md:max-w-[75vw]"
+        // centeredSlides={true}
+        // pagination={{
+        //   clickable: true,
+        // }}
+        modules={[Pagination]}
+        className="mySwiper w-[95vw] md:max-w-[75vw] rounded-md"
       >
         {thatListing.map((listing, i) => (
           <SwiperSlide className="p-1 " key={i}>
