@@ -22,13 +22,9 @@ function HomeSection({ thatListing, useFor }) {
       </h2>
       <div>
         <Swiper
-          breakpointsBase={{
-            768: {
-              slidesPerView: 2,
-            },
-            0: {
-              slidesPerView: 1,
-            },
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            0: { slidesPerView: 1 },
           }}
           spaceBetween={30}
           modules={[Pagination]}
