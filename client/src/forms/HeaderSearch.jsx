@@ -23,7 +23,7 @@ function HeaderSearch() {
     <form
       autoComplete="off"
       onSubmit={handleSubmit}
-      className="bg-slate-100 rounded-lg p-3 flex items-center gap-2"
+      className="bg-slate-100 rounded-lg p-2 md:p-3 flex items-center gap-2"
     >
       <input
         type="text"

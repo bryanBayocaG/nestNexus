@@ -7,12 +7,12 @@ function ListingCard({ listing }) {
   return (
     <Link
       to={`/listing-info/${listing._id}`}
-      className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[320px] cursor-pointer group  transition-all duration-300 ease-in-out grow"
+      className="shadow-md hover:shadow-lg flex flex-col rounded-xl overflow-hidden h-[320px] w-full cursor-pointer group  transition-all duration-300 ease-in-out grow"
     >
       <div className="h-[170px] overflow-hidden">
         <img
           src={imageSrc(listing.imageUrls[0])}
-          className="truncate object-contain group-hover:scale-105 transition-all duration-300 ease-in-out"
+          className="object-contain group-hover:scale-105 transition-all duration-300 ease-in-out"
           alt={listing.name}
         />
       </div>
@@ -21,7 +21,7 @@ function ListingCard({ listing }) {
           <p className="font-bold text-secondary text-xl whitespace-nowrap">
             $ {listing.regularPrice.toLocaleString("en-US")}
           </p>
-          <div className="flex text-sm gap-1 items-center">
+          <div className="flex text-sm gap-1 items-center flex-wrap">
             <div className="flex gap-1 text-white items-center px-2 py-1 bg-green-700 rounded-sm">
               <p className="  ">{listing.bedroom}</p>
               <FaBed />

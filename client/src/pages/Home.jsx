@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchPageSearchForm from "../forms/SearchPageSearchForm";
+import { backEndBaseURL } from "../utils/backendBaseURL";
+import HomeSection from "../components/HomeSection";
 
 const Home = () => {
   const [searchData, setSearchData] = useState({
@@ -14,9 +16,55 @@ const Home = () => {
   });
   const [loading, setLoading] = useState(false);
   const [setListings] = useState([]);
+  const [offerListing, setOfferListing] = useState([]);
+  const [saleListing, setSaleListing] = useState([]);
+  const [rentListing, setRentListing] = useState([]);
+
+  console.log("offer", offerListing, "sale", saleListing, "rent", rentListing);
+
+  useEffect(() => {
+    const fetchOfferLising = async () => {
+      try {
+        const res = await fetch(
+          `${backEndBaseURL}/api/listing/get?offer=true&limit=4`
+        );
+        const data = await res.json();
+        setOfferListing(data);
+        fetchRentListing();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const fetchRentListing = async () => {
+      try {
+        const res = await fetch(
+          `${backEndBaseURL}/api/listing/get?type=rent&limit=4`
+        );
+        const data = await res.json();
+        setRentListing(data);
+        fetchSaleListing();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchSaleListing = async () => {
+      try {
+        const res = await fetch(
+          `${backEndBaseURL}/api/listing/get?type=sale&limit=4`
+        );
+        const data = await res.json();
+        setSaleListing(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchOfferLising();
+  }, []);
   return (
     <main>
-      <section className="relative h-[75vh] bg-[url(/heroBG.jpg)] bg-cover bg-center flex flex-col justify-center items-center">
+      <section className="relative h-[85vh] bg-[url(/heroBG.jpg)] bg-cover bg-center flex flex-col justify-center items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-[rgba(158,28,28,0.8)] to-[rgba(212,175,55,0.8)] z-10" />
         <div className="relative z-20 flex flex-col">
           <div className="text-white flex flex-col justify-center items-center gap-2 ">
@@ -40,6 +88,12 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <div className="flex flex-col gap-4 justify-center">
+        <HomeSection thatListing={offerListing} useFor={"offer"} />
+        <HomeSection thatListing={rentListing} useFor={"rent"} />
+        <HomeSection thatListing={saleListing} useFor={"sale"} />
+      </div>
     </main>
   );
 };

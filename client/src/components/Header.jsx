@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <>
       <header className="bg-white shadow-md z-50 boder-2 border-b-gray-400">
-        <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
+        <div className="flex justify-between items-center max-w-6xl m-auto p-4 bg-yello h-[10vh]">
           <Link to="/">
             <h1 className="font-bold  text-sm sm:text-xl lg:text-2xl flex items-center flex-wrap">
               <img className="w-12" src="/Noxus_Crest.png" alt="" />
