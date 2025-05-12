@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 
 import ListingCard from "./ListingCard";
 import { Link } from "react-router-dom";
@@ -41,11 +41,11 @@ function HomeSection({ thatListing, useFor }) {
       <Swiper
         slidesPerView={listToView}
         spaceBetween={30}
-        // centeredSlides={true}
-        // pagination={{
-        //   clickable: true,
-        // }}
-        modules={[Pagination]}
+        autoplay={{
+          delay: Math.floor(Math.random() * 3000) + 2000,
+          disableOnInteraction: false,
+        }}
+        modules={[Pagination, Autoplay]}
         className="mySwiper w-[95vw] md:max-w-[75vw] rounded-md"
       >
         {thatListing.map((listing, i) => (
